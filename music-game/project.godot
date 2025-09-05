@@ -14,3 +14,11 @@ config/name="music game"
 run/main_scene="uid://bfmcko2kyhltc"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Globals="*res://scripts/globals.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
