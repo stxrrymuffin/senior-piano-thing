@@ -9,6 +9,16 @@ var note_map = {
 	[74]:"B",
 }
 
+var note_to_pitch = {
+	"C" = 60,
+	"D" = 62,
+	"E" = 64,
+	"F" = 65,
+	"G" = 67,
+	"A" = 69,
+	"B" = 71
+}
+
 var pos_map = {
 	"C": -6,
 	"D": -5,

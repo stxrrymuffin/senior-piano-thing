@@ -1,6 +1,17 @@
 [gd_scene load_steps=2 format=3 uid="uid://bfmcko2kyhltc"]
 
-[ext_resource type="Script" uid="uid://dk8hf3lohkifm" path="res://scripts/test_midi.gd" id="1_3eykf"]
+[sub_resource type="GDScript" id="GDScript_4fn7u"]
+script/source = "extends Node3D
+
+func _ready():
+	OS.open_midi_inputs()
+	print(OS.get_connected_midi_inputs())
+	
+func _input(event):
+	if event is InputEventMIDI:
+		if event.channel == 0:
+			print(\"pitch\", event.pitch)
+"
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_3eykf")
+script = SubResource("GDScript_4fn7u")

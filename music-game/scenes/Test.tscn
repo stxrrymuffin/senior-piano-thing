@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://biuec42i4l4vp"]
+[gd_scene load_steps=3 format=3 uid="uid://biuec42i4l4vp"]
 
 [ext_resource type="Script" uid="uid://cwvamhwj8au1c" path="res://scripts/transcription_test.gd" id="1_0d6la"]
 [ext_resource type="Texture2D" uid="uid://461665ijh60t" path="res://assets/music_staff.jpg" id="2_di7wo"]
-[ext_resource type="PackedScene" uid="uid://buxma7abgj5qa" path="res://scenes/music_note.tscn" id="3_0d6la"]
 
 [node name="test_midi" type="Node2D"]
 script = ExtResource("1_0d6la")
@@ -11,6 +10,3 @@ script = ExtResource("1_0d6la")
 texture = ExtResource("2_di7wo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="music_note" parent="." instance=ExtResource("3_0d6la")]
-position = Vector2(0, -22)

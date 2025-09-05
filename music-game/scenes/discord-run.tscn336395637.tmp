@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnfxa8veupuii"]
+
+[ext_resource type="Script" uid="uid://c3rnpy3l4oxx4" path="res://scenes/discord_manager.gd" id="1_ir7si"]
+
+[node name="Discord-run" type="Node2D"]
+script = ExtResource("1_ir7si")
