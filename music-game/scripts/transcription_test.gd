@@ -18,6 +18,7 @@ func _ready():
 	DiscordRPC.refresh()
 	OS.open_midi_inputs()
 	print(OS.get_connected_midi_inputs())
+	$Button.focus_mode = Control.FOCUS_NONE 
 	
 func _input(event):
 	#check if MIDI input
@@ -45,11 +46,10 @@ func _input(event):
 			var new_note_scene = preload("res://scenes/music_note.tscn").instantiate()
 			new_note_scene.position = Vector2(-180 + cur_note*80, -22*7 * cur_octave + -22 * Globals.pos_map[new_note])
 			add_child(new_note_scene)
-			play_note(new_note)
+			play_note(new_note+str(cur_octave))
 			#update note list
-			note_lst[cur_note] = new_note
+			note_lst[cur_note] = new_note + str(cur_octave)
 			note_node_lst[cur_note] = new_note_scene
-			
 			
 func confirm_note(note):
 	cur_note += 1
@@ -57,17 +57,26 @@ func confirm_note(note):
 	note_node_lst += [0]
 	
 func play_note(note):
-	#play note audio
+	#play note audio, note = C, D, E ...
 	var audio := AudioStreamPlayer.new()
 	add_child(audio)
 	audio.stream = preload("res://assets/A440.wav")
-	audio.pitch_scale = pow(2, (Globals.note_to_pitch[note] + 12*cur_octave - 69.0) / 12.0)
+	audio.pitch_scale = pow(2, (Globals.note_to_pitch[note[0]] + 12*int(note[1]) - 69.0) / 12.0)
 	audio.play()
 	
 func delete_note():
 	#delete previously confirmed note
+	#TODO make it so that arrow keys can navigate between notes & delete specified ones
 	if cur_note > 0:
 		note_node_lst[-2].queue_free()
 		note_node_lst.remove_at(note_node_lst.size()-2)
 		note_lst.remove_at(note_lst.size()-2)
 		cur_note -= 1
+
+func _on_button_pressed():
+	#play current transcription when button pressed
+	var play_notes_lst = note_lst
+	if note_lst[-1] is int: play_notes_lst = note_lst.slice(0,-1)
+	for i in range(play_notes_lst.size()):
+		play_note(play_notes_lst[i])
+		await get_tree().create_timer(0.5).timeout

@@ -10,3 +10,12 @@ script = ExtResource("1_0d6la")
 texture = ExtResource("2_di7wo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Button" type="Button" parent="."]
+offset_left = -453.0
+offset_top = -242.0
+offset_right = -348.0
+offset_bottom = -211.0
+text = "Play Current"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
