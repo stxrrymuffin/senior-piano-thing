@@ -1,5 +1,5 @@
 extends Node
-var note_map = {
+const note_map_keyboard = {
 	[65]:"C",
 	[83]:"D",
 	[68]:"E",
@@ -9,7 +9,17 @@ var note_map = {
 	[74]:"B",
 }
 
-var note_to_pitch = {
+const note_map_midi= {
+	0:"C",
+	2:"D",
+	4:"E",
+	5:"F",
+	7:"G",
+	9:"A",
+	11:"B",
+}
+
+const note_to_pitch = {
 	"C" = 60,
 	"D" = 62,
 	"E" = 64,
@@ -19,7 +29,7 @@ var note_to_pitch = {
 	"B" = 71
 }
 
-var pos_map = {
+const pos_map = {
 	"C": -6,
 	"D": -5,
 	"E": -4,
