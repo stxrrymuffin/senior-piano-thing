@@ -59,9 +59,11 @@ func place_note(new_note):
 	
 	#load in music note display
 	if note_node_lst[cur_note] is not int:
-		note_node_lst[cur_note].queue_free()
+		for node in note_node_lst[cur_note]:
+			node.queue_free()
 	elif note_node_lst[cur_note] != 0:
-		note_node_lst[cur_note].queue_free()
+		for node in note_node_lst[cur_note]:
+			node.queue_free()
 	var new_note_scene = note_scene.instantiate()
 	
 	var x_pos = -180 + cur_note*note_space
@@ -75,21 +77,27 @@ func place_note(new_note):
 	else:
 		y_pos = -1*line_space* (7*(int(new_note/12)-4) + Globals.pos_map[Globals.note_map_midi[new_note%12]])
 		new_note_scene.position = Vector2(x_pos, y_pos)
-		note_lst[cur_note] = new_note + str(int(new_note/12)-4)
+		print(new_note)
+		note_lst[cur_note] = Globals.note_map_midi[new_note%12] + str(int(new_note/12)-4)
+		
+	add_child(new_note_scene)
+	play_note(note_lst[cur_note])
+	note_node_lst[cur_note] = [new_note_scene]
+	
+	# too high of a note, place ledger line
 	if y_pos >= 6*line_space:
 		for i in range(6*line_space, y_pos+1, line_space*2):
 			var ledger_line = ledger_line_scene.instantiate()
 			ledger_line.position = Vector2(x_pos, i)
 			add_child(ledger_line)
+			note_node_lst[cur_note] += [ledger_line]
+	# too low of a note, place ledger line
 	elif y_pos <= -6*line_space:
 		for i in range(-6*line_space, y_pos-1, -line_space*2):
 			var ledger_line = ledger_line_scene.instantiate()
 			ledger_line.position = Vector2(x_pos, i)
 			add_child(ledger_line)
-		print('hii')
-	add_child(new_note_scene)
-	play_note(note_lst[cur_note])
-	note_node_lst[cur_note] = new_note_scene
+			note_node_lst[cur_note] += [ledger_line]
 			
 func confirm_note():
 	if str(note_lst[cur_note]) != '0':
@@ -112,12 +120,14 @@ func delete_note():
 	print(note_lst)
 	#if there is already a temporary note selected, delete it
 	if note_node_lst[-1] is not int: 
-		note_node_lst[-1].queue_free()
+		for node in note_node_lst[-1]:
+			node.queue_free()
 		note_node_lst[-1] = 0
 		note_lst[-1] = 0
 	#else, delete prev confirmed note
 	elif cur_note > 0:
-		note_node_lst[-2].queue_free()
+		for node in note_node_lst[-2]:
+			node.queue_free()
 		note_node_lst.remove_at(note_node_lst.size()-2)
 		note_lst.remove_at(note_lst.size()-2)
 		cur_note -= 1

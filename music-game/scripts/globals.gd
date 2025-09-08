@@ -7,6 +7,7 @@ const note_map_keyboard = {
 	[71]:"G",
 	[72]:"A",
 	[74]:"B",
+	[75]:"H" #c2 lol
 }
 
 const note_map_midi= {
@@ -16,7 +17,7 @@ const note_map_midi= {
 	5:"F",
 	7:"G",
 	9:"A",
-	11:"B",
+	11:"B"
 }
 
 const note_to_pitch = {
@@ -26,7 +27,8 @@ const note_to_pitch = {
 	"F" = 65,
 	"G" = 67,
 	"A" = 69,
-	"B" = 71
+	"B" = 71,
+	"H" = 72
 }
 
 const pos_map = {
@@ -37,4 +39,5 @@ const pos_map = {
 	"G" : -2,
 	"A" : -1,
 	"B": 0,
+	"H": 1
 }
