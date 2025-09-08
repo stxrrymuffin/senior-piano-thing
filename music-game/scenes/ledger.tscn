@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://w36nmnj3oyyb"]
+
+[node name="ledger" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -40.0
+offset_top = -2.0
+offset_right = 40.0
+offset_bottom = 38.0
+scale = Vector2(1, 0.1)
+color = Color(0, 0, 0, 1)

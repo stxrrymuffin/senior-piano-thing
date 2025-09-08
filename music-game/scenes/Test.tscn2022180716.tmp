@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://biuec42i4l4vp"]
+
+[ext_resource type="Script" uid="uid://cwvamhwj8au1c" path="res://scripts/transcription_test.gd" id="1_0d6la"]
+[ext_resource type="Texture2D" uid="uid://461665ijh60t" path="res://assets/music_staff.jpg" id="2_di7wo"]
+
+[node name="test_midi" type="Node2D"]
+script = ExtResource("1_0d6la")
+
+[node name="staff" type="Sprite2D" parent="."]
+texture = ExtResource("2_di7wo")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Button" type="Button" parent="."]
+offset_left = -453.0
+offset_top = -242.0
+offset_right = -348.0
+offset_bottom = -211.0
+text = "Play Current"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -5,6 +5,13 @@ var note_lst = [0]
 var note_node_lst = [0]
 var cur_octave = 0
 
+var ledger_line_scene = preload("res://scenes/ledger.tscn")
+var note_scene = preload("res://scenes/music_note.tscn")
+var a440_scene = preload("res://assets/A440.wav")
+
+const line_space = 22
+const note_space = 100
+
 # A standard piano with 88 keys has keys from 21 to 108.
 # To get a different set of keys, modify these numbers.
 # A maximally extended 108-key piano goes from 12 to 119.
@@ -34,7 +41,7 @@ func _input(event):
 		
 	if event.is_action_pressed("Confirm"):
 		if note_node_lst[cur_note] is not int:
-			confirm_note(cur_note)
+			confirm_note()
 		
 	#check if key input
 	elif event is InputEventKey and not event.echo and event.pressed:
@@ -52,52 +59,67 @@ func place_note(new_note):
 	
 	#load in music note display
 	if note_node_lst[cur_note] is not int:
-		print(note_node_lst[cur_note])
 		note_node_lst[cur_note].queue_free()
 	elif note_node_lst[cur_note] != 0:
-		print(note_node_lst[cur_note])
 		note_node_lst[cur_note].queue_free()
-	var new_note_scene = preload("res://scenes/music_note.tscn").instantiate()
+	var new_note_scene = note_scene.instantiate()
 	
-	#if keyboard input
+	var x_pos = -180 + cur_note*note_space
+	var y_pos = 0
+	#if keyboard input, set position to current octave & note
 	if new_note is not int:
-		new_note_scene.position = Vector2(-180 + cur_note*80, -22*7 * cur_octave + -22 * Globals.pos_map[new_note])
-		add_child(new_note_scene)
-		play_note(new_note+str(cur_octave))
+		y_pos = -1*line_space* (7 * cur_octave + Globals.pos_map[new_note])
+		new_note_scene.position = Vector2(x_pos, y_pos)
 		note_lst[cur_note] = new_note + str(cur_octave)
-	#if midi input
+	#if midi input, set position to note played
 	else:
-		new_note_scene.position = Vector2(-180 + cur_note*80, -22*7 * (int(new_note/12)-4) + -22 * Globals.pos_map[Globals.note_map_midi[new_note%12]])
-		add_child(new_note_scene)
-		play_note(new_note)
+		y_pos = -1*line_space* (7*(int(new_note/12)-4) + Globals.pos_map[Globals.note_map_midi[new_note%12]])
+		new_note_scene.position = Vector2(x_pos, y_pos)
 		note_lst[cur_note] = new_note + str(int(new_note/12)-4)
+	if y_pos >= 6*line_space:
+		for i in range(6*line_space, y_pos+1, line_space*2):
+			var ledger_line = ledger_line_scene.instantiate()
+			ledger_line.position = Vector2(x_pos, i)
+			add_child(ledger_line)
+	elif y_pos <= -6*line_space:
+		for i in range(-6*line_space, y_pos-1, -line_space*2):
+			var ledger_line = ledger_line_scene.instantiate()
+			ledger_line.position = Vector2(x_pos, i)
+			add_child(ledger_line)
+		print('hii')
+	add_child(new_note_scene)
+	play_note(note_lst[cur_note])
 	note_node_lst[cur_note] = new_note_scene
 			
-func confirm_note(note):
-	cur_note += 1
-	note_lst += [0]
-	note_node_lst += [0]
+func confirm_note():
+	if str(note_lst[cur_note]) != '0':
+		cur_note += 1
+		note_lst += [0]
+		note_node_lst += [0]
 	
 func play_note(note):
 	#play note audio, note = C, D, E ... OR note = 60, 61, 62...
 	var audio := AudioStreamPlayer.new()
 	add_child(audio)
-	audio.stream = preload("res://assets/A440.wav")
-	if note is not int:
-		audio.pitch_scale = pow(2, (Globals.note_to_pitch[note[0]] + 12*int(note[1]) - 69.0) / 12.0)
-	else:
-		audio.pitch_scale = pow(2, (note - 69.0) / 12.0)
+	audio.stream = a440_scene
+	audio.pitch_scale = pow(2, (Globals.note_to_pitch[note[0]] + 12*int(note.substr(1,len(note))) - 69.0) / 12.0)
 	audio.play()
 	
 func delete_note():
 	#delete previously confirmed note
 	#TODO make it so that arrow keys can navigate between notes & delete specified ones
-	if cur_note > 0:
+	print(note_node_lst)
+	print(note_lst)
+	#if there is already a temporary note selected, delete it
+	if note_node_lst[-1] is not int: 
+		note_node_lst[-1].queue_free()
+		note_node_lst[-1] = 0
+		note_lst[-1] = 0
+	#else, delete prev confirmed note
+	elif cur_note > 0:
 		note_node_lst[-2].queue_free()
 		note_node_lst.remove_at(note_node_lst.size()-2)
 		note_lst.remove_at(note_lst.size()-2)
-		print(note_node_lst)
-		print(note_lst)
 		cur_note -= 1
 
 func _on_button_pressed():
