@@ -65,7 +65,7 @@ func place_note(new_note):
 		for node in note_node_lst[cur_note]:
 			node.queue_free()
 	var new_note_scene = note_scene.instantiate()
-	
+	new_note_scene.note_changed.connect(note_on_click)
 	var x_pos = -180 + cur_note*note_space
 	var y_pos = 0
 	#if keyboard input, set position to current octave & note
@@ -79,7 +79,7 @@ func place_note(new_note):
 		new_note_scene.position = Vector2(x_pos, y_pos)
 		print(new_note)
 		note_lst[cur_note] = Globals.note_map_midi[new_note%12] + str(int(new_note/12)-4)
-		
+	
 	add_child(new_note_scene)
 	play_note(note_lst[cur_note])
 	note_node_lst[cur_note] = [new_note_scene]
@@ -139,3 +139,6 @@ func _on_button_pressed():
 	for i in range(play_notes_lst.size()):
 		play_note(play_notes_lst[i])
 		await get_tree().create_timer(0.5).timeout
+
+func note_on_click(note_type):
+	print(note_type)
