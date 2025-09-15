@@ -17,4 +17,4 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			note_type = 0
 			$sharp.visible = false
 			$flat.visible = false
-		emit_signal("note_changed", note_type)
+		emit_signal("note_changed", self, note_type)

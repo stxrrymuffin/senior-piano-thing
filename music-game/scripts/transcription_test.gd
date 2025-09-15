@@ -110,7 +110,7 @@ func play_note(note):
 	var audio := AudioStreamPlayer.new()
 	add_child(audio)
 	audio.stream = a440_scene
-	audio.pitch_scale = pow(2, (Globals.note_to_pitch[note[0]] + 12*int(note.substr(1,len(note))) - 69.0) / 12.0)
+	audio.pitch_scale = pow(2, (Globals.note_to_pitch[note.substr(0,note.length()-1)] + 12*int(note.substr(1,len(note))) - 69.0) / 12.0)
 	audio.play()
 	
 func delete_note():
@@ -140,5 +140,15 @@ func _on_button_pressed():
 		play_note(play_notes_lst[i])
 		await get_tree().create_timer(0.5).timeout
 
-func note_on_click(note_type):
+func note_on_click(node, note_type):
+	print(node)
 	print(note_type)
+	print(note_lst[cur_note])
+	if note_type == 1:
+		note_lst[cur_note] = note_lst[cur_note][0] + "#" + note_lst[cur_note].substr(1,note_lst[cur_note].length())
+	elif note_type == -1:
+		note_lst[cur_note] = note_lst[cur_note].replace("#", "b")
+	else:
+		note_lst[cur_note] = note_lst[cur_note][0] + note_lst[cur_note].substr(2,note_lst[cur_note].length())
+	play_note(note_lst[cur_note])
+	
