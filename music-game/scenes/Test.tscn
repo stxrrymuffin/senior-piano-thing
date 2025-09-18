@@ -18,4 +18,12 @@ offset_right = -348.0
 offset_bottom = -211.0
 text = "Play Current"
 
+[node name="accidentalType" type="Button" parent="."]
+offset_left = -298.0
+offset_top = -241.0
+offset_right = -244.0
+offset_bottom = -210.0
+text = "Current Accidental: Sharp"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="accidentalType" to="." method="_on_accidental_type_pressed"]

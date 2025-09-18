@@ -12,6 +12,8 @@ var a440_scene = preload("res://assets/A440.wav")
 const line_space = 22
 const note_space = 100
 
+var cur_midi_map = Globals.note_map_midi_sharp
+
 # A standard piano with 88 keys has keys from 21 to 108.
 # To get a different set of keys, modify these numbers.
 # A maximally extended 108-key piano goes from 12 to 119.
@@ -26,13 +28,13 @@ func _ready():
 	OS.open_midi_inputs()
 	print(OS.get_connected_midi_inputs())
 	$Button.focus_mode = Control.FOCUS_NONE 
+	$accidentalType.focus_mode = Control.FOCUS_NONE 
 	
 func _input(event):
 	#check if MIDI input
 	if event is InputEventMIDI:
 		if event.channel == 0 and event.message == MIDI_MESSAGE_NOTE_ON:
 			print("pitch", event.pitch)
-			#if [event.pitch] in Globals.note_map_midi:
 			var new_note = event.pitch
 			place_note(new_note)
 			
@@ -68,6 +70,7 @@ func place_note(new_note):
 	new_note_scene.note_changed.connect(note_on_click)
 	var x_pos = -180 + cur_note*note_space
 	var y_pos = 0
+	
 	#if keyboard input, set position to current octave & note
 	if new_note is not int:
 		y_pos = -1*line_space* (7 * cur_octave + Globals.pos_map[new_note])
@@ -75,10 +78,14 @@ func place_note(new_note):
 		note_lst[cur_note] = new_note + str(cur_octave)
 	#if midi input, set position to note played
 	else:
-		y_pos = -1*line_space* (7*(int(new_note/12)-4) + Globals.pos_map[Globals.note_map_midi[new_note%12]])
+		y_pos = -1*line_space* (7*(int(new_note/12)-4) + Globals.pos_map[cur_midi_map[new_note%12][0]])
 		new_note_scene.position = Vector2(x_pos, y_pos)
+		if "#" in cur_midi_map[new_note%12]:
+			new_note_scene.set_sharp()
+		elif "b" in cur_midi_map[new_note%12]:
+			new_note_scene.set_flat()
 		print(new_note)
-		note_lst[cur_note] = Globals.note_map_midi[new_note%12] + str(int(new_note/12)-4)
+		note_lst[cur_note] = cur_midi_map[new_note%12] + str(int(new_note/12)-4)
 	
 	add_child(new_note_scene)
 	play_note(note_lst[cur_note])
@@ -104,13 +111,18 @@ func confirm_note():
 		cur_note += 1
 		note_lst += [0]
 		note_node_lst += [0]
+
+func first_digit_idx(string):
+	for i in range(len(string)):
+		if string[i] in "123456790-":
+			return i
 	
 func play_note(note):
 	#play note audio, note = C, D, E ... OR note = 60, 61, 62...
 	var audio := AudioStreamPlayer.new()
 	add_child(audio)
 	audio.stream = a440_scene
-	audio.pitch_scale = pow(2, (Globals.note_to_pitch[note.substr(0,note.length()-1)] + 12*int(note.substr(1,len(note))) - 69.0) / 12.0)
+	audio.pitch_scale = pow(2, (Globals.note_to_pitch[note.substr(0,first_digit_idx(note))] + 12*int(note.substr(1,len(note))) - 69.0) / 12.0)
 	audio.play()
 	
 func delete_note():
@@ -151,4 +163,12 @@ func note_on_click(node, note_type):
 	else:
 		note_lst[cur_note] = note_lst[cur_note][0] + note_lst[cur_note].substr(2,note_lst[cur_note].length())
 	play_note(note_lst[cur_note])
-	
+
+
+func _on_accidental_type_pressed():
+	if cur_midi_map == Globals.note_map_midi_sharp:
+		$accidentalType.text = "Current Accidental: Flat"
+		cur_midi_map = Globals.note_map_midi_flat
+	else:
+		$accidentalType.text = "Current Accidental: Sharp"
+		cur_midi_map = Globals.note_map_midi_sharp
