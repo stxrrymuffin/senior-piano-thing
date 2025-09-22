@@ -76,6 +76,7 @@ func place_note(new_note):
 		y_pos = -1*line_space* (7 * cur_octave + Globals.pos_map[new_note])
 		new_note_scene.position = Vector2(x_pos, y_pos)
 		note_lst[cur_note] = new_note + str(cur_octave)
+		print(cur_midi_map)
 	#if midi input, set position to note played
 	else:
 		y_pos = -1*line_space* (7*(int(new_note/12)-4) + Globals.pos_map[cur_midi_map[new_note%12][0]])

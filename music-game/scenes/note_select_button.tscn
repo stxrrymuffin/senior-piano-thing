@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bspbpm7y5k202"]
+
+[ext_resource type="Script" uid="uid://dq2ntw3x0l1wo" path="res://scenes/note_select_button.gd" id="1_m6nub"]
+[ext_resource type="Texture2D" uid="uid://d0qtjasv1o4t8" path="res://assets/quarter_note.png" id="2_xburg"]
+[ext_resource type="Texture2D" uid="uid://boantjeovmsn1" path="res://assets/half_note.png" id="3_a2547"]
+[ext_resource type="Texture2D" uid="uid://ccu73nytd1mkt" path="res://assets/eighth_note.png" id="4_lvdm8"]
+[ext_resource type="Texture2D" uid="uid://da7trsxd4am0d" path="res://assets/16th_note.png" id="5_lgviv"]
+
+[node name="Note Select Button" type="Node2D"]
+script = ExtResource("1_m6nub")
+
+[node name="OptionButton" type="OptionButton" parent="."]
+offset_right = 259.0
+offset_bottom = 50.0
+expand_icon = true
+item_count = 4
+popup/item_0/text = "Quarter Note"
+popup/item_0/icon = ExtResource("2_xburg")
+popup/item_0/id = 0
+popup/item_1/text = "Half Note"
+popup/item_1/icon = ExtResource("3_a2547")
+popup/item_1/id = 1
+popup/item_2/text = "Eighth Note"
+popup/item_2/icon = ExtResource("4_lvdm8")
+popup/item_2/id = 2
+popup/item_3/text = "Sixteenth Note"
+popup/item_3/icon = ExtResource("5_lgviv")
+popup/item_3/id = 3
