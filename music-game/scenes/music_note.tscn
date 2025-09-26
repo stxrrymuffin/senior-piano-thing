@@ -1,18 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://buxma7abgj5qa"]
+[gd_scene load_steps=11 format=3 uid="uid://buxma7abgj5qa"]
 
 [ext_resource type="Script" uid="uid://bd4gsicxem3se" path="res://scripts/music_note.gd" id="1_lqtth"]
 [ext_resource type="Texture2D" uid="uid://d0qtjasv1o4t8" path="res://assets/quarter_note.png" id="1_mmpap"]
-[ext_resource type="Texture2D" uid="uid://ccu73nytd1mkt" path="res://assets/eighth_note.png" id="2_lcui3"]
-[ext_resource type="Texture2D" uid="uid://boantjeovmsn1" path="res://assets/half_note.png" id="3_dfo86"]
+[ext_resource type="Texture2D" uid="uid://bcvq3lj25l57b" path="res://assets/eighth_note_new.png" id="2_dfo86"]
+[ext_resource type="Texture2D" uid="uid://8qfwjwahvhpe" path="res://assets/half_note_new.png" id="3_3i6ys"]
 [ext_resource type="Texture2D" uid="uid://bfa3yt7klthm4" path="res://assets/flat_symbol.png" id="3_ht51x"]
 [ext_resource type="Texture2D" uid="uid://b1ttfk31v003g" path="res://assets/sharp_symbol.png" id="4_1s7db"]
-[ext_resource type="Texture2D" uid="uid://da7trsxd4am0d" path="res://assets/16th_note.png" id="5_3i6ys"]
+[ext_resource type="Texture2D" uid="uid://yhk287dbiio7" path="res://assets/quarter_note_new.png" id="4_xdhxk"]
+[ext_resource type="Texture2D" uid="uid://675wttsfe428" path="res://assets/16th_note_new.png" id="5_pfphw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xdhxk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_lcui3")
+"texture": ExtResource("2_dfo86")
 }],
 "loop": true,
 "name": &"eighth",
@@ -20,7 +21,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_dfo86")
+"texture": ExtResource("3_3i6ys")
 }],
 "loop": true,
 "name": &"half",
@@ -28,7 +29,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_mmpap")
+"texture": ExtResource("4_xdhxk")
 }],
 "loop": true,
 "name": &"quarter",
@@ -36,7 +37,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_3i6ys")
+"texture": ExtResource("5_pfphw")
 }],
 "loop": true,
 "name": &"sixteenth",
@@ -50,13 +51,13 @@ size = Vector2(51, 50)
 script = ExtResource("1_lqtth")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(0, -49)
+position = Vector2(9, -53)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_xdhxk")
 animation = &"eighth"
 
 [node name="music_note" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(0, -49)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_mmpap")

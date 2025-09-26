@@ -13,6 +13,7 @@ const line_space = 22
 const note_space = 100
 
 var cur_midi_map = Globals.note_map_midi_sharp
+var cur_note_length = 0 #default, quarter
 
 # A standard piano with 88 keys has keys from 21 to 108.
 # To get a different set of keys, modify these numbers.
@@ -29,6 +30,7 @@ func _ready():
 	print(OS.get_connected_midi_inputs())
 	$Button.focus_mode = Control.FOCUS_NONE 
 	$accidentalType.focus_mode = Control.FOCUS_NONE 
+	$"Note Select Button".note_length_changed.connect(set_cur_note_length)
 	
 func _input(event):
 	#check if MIDI input
@@ -87,7 +89,7 @@ func place_note(new_note):
 			new_note_scene.set_flat()
 		print(new_note)
 		note_lst[cur_note] = cur_midi_map[new_note%12] + str(int(new_note/12)-4)
-	
+	new_note_scene.set_note(cur_note_length)
 	add_child(new_note_scene)
 	play_note(note_lst[cur_note])
 	note_node_lst[cur_note] = [new_note_scene]
@@ -151,7 +153,15 @@ func _on_button_pressed():
 	if note_lst[-1] is int: play_notes_lst = note_lst.slice(0,-1)
 	for i in range(play_notes_lst.size()):
 		play_note(play_notes_lst[i])
-		await get_tree().create_timer(0.5).timeout
+		print(note_node_lst[i])
+		if note_node_lst[i][0].note_length == 0:
+			await get_tree().create_timer(0.5).timeout
+		elif note_node_lst[i][0].note_length == 1:
+			await get_tree().create_timer(1).timeout
+		elif note_node_lst[i][0].note_length == 2:
+			await get_tree().create_timer(0.25).timeout
+		else:
+			await get_tree().create_timer(0.125).timeout
 
 func note_on_click(node, note_type):
 	print(node)
@@ -164,7 +174,9 @@ func note_on_click(node, note_type):
 	else:
 		note_lst[cur_note] = note_lst[cur_note][0] + note_lst[cur_note].substr(2,note_lst[cur_note].length())
 	play_note(note_lst[cur_note])
-
+	
+func set_cur_note_length(note_length):
+	cur_note_length = note_length
 
 func _on_accidental_type_pressed():
 	if cur_midi_map == Globals.note_map_midi_sharp:
