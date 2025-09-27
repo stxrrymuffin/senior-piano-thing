@@ -3,6 +3,7 @@ extends Node2D
 var cur_note = 0
 var note_lst = [0]
 var note_node_lst = [0]
+var note_ledger_lst = [0] #TODO
 var cur_octave = 0
 
 var ledger_line_scene = preload("res://scenes/ledger.tscn")
@@ -167,13 +168,20 @@ func note_on_click(node, note_type):
 	print(node)
 	print(note_type)
 	print(note_lst[cur_note])
+	
+	#TODO make this more efficient
+	var lst_nodes = []
+	for note in note_node_lst:
+		lst_nodes += [note[0]]
+	var clicked_note = lst_nodes.find(node)
+	
 	if note_type == 1:
-		note_lst[cur_note] = note_lst[cur_note][0] + "#" + note_lst[cur_note].substr(1,note_lst[cur_note].length())
+		note_lst[clicked_note] = note_lst[clicked_note][0] + "#" + note_lst[clicked_note].substr(1,note_lst[clicked_note].length())
 	elif note_type == -1:
-		note_lst[cur_note] = note_lst[cur_note].replace("#", "b")
+		note_lst[clicked_note] = note_lst[clicked_note].replace("#", "b")
 	else:
-		note_lst[cur_note] = note_lst[cur_note][0] + note_lst[cur_note].substr(2,note_lst[cur_note].length())
-	play_note(note_lst[cur_note])
+		note_lst[clicked_note] = note_lst[clicked_note][0] + note_lst[clicked_note].substr(2,note_lst[clicked_note].length())
+	play_note(note_lst[clicked_note])
 	
 func set_cur_note_length(note_length):
 	cur_note_length = note_length
