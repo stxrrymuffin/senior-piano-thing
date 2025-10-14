@@ -29,11 +29,19 @@ func _ready():
 	DiscordRPC.refresh()
 	OS.open_midi_inputs()
 	print(OS.get_connected_midi_inputs())
-	$Button.focus_mode = Control.FOCUS_NONE 
-	$accidentalType.focus_mode = Control.FOCUS_NONE 
-	$"Note Select Button".note_length_changed.connect(set_cur_note_length)
+	$CanvasLayer/Button.focus_mode = Control.FOCUS_NONE 
+	$CanvasLayer/accidentalType.focus_mode = Control.FOCUS_NONE 
+	$"CanvasLayer/Note Select Button".note_length_changed.connect(set_cur_note_length)
+	
+func set_zoom(delta: Vector2) -> void:
+	var mouse_pos := get_global_mouse_position()
+	if ($Camera2D.zoom+delta) != Vector2(0,0):
+		$Camera2D.zoom += delta
+	var new_mouse_pos := get_global_mouse_position()
+	$Camera2D.position += mouse_pos - new_mouse_pos
 	
 func _input(event):
+	
 	#check if MIDI input
 	if event is InputEventMIDI:
 		if event.channel == 0 and event.message == MIDI_MESSAGE_NOTE_ON:
@@ -59,6 +67,14 @@ func _input(event):
 		elif [event['keycode']] in Globals.note_map_keyboard:
 			var new_note = Globals.note_map_keyboard[[event['keycode']]]
 			place_note(new_note)
+	
+	if event is InputEventMouse:
+		if event.is_pressed() and not event.is_echo():
+			var mouse_position = event.position
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				set_zoom(Vector2(0.10,0.10))
+			else : if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				set_zoom(Vector2(-0.10,-0.10))
 
 func place_note(new_note):
 	
@@ -84,6 +100,7 @@ func place_note(new_note):
 	else:
 		y_pos = -1*line_space* (7*(int(new_note/12)-4) + Globals.pos_map[cur_midi_map[new_note%12][0]])
 		new_note_scene.position = Vector2(x_pos, y_pos)
+		#show accidental
 		if "#" in cur_midi_map[new_note%12]:
 			new_note_scene.set_sharp()
 		elif "b" in cur_midi_map[new_note%12]:
@@ -111,12 +128,14 @@ func place_note(new_note):
 			note_node_lst[cur_note] += [ledger_line]
 			
 func confirm_note():
+	# on enter, "confirms" note and adds to list
 	if str(note_lst[cur_note]) != '0':
 		cur_note += 1
 		note_lst += [0]
 		note_node_lst += [0]
 
 func first_digit_idx(string):
+	# get first digit's idx of a string 
 	for i in range(len(string)):
 		if string[i] in "123456790-":
 			return i
@@ -172,7 +191,8 @@ func note_on_click(node, note_type):
 	#TODO make this more efficient
 	var lst_nodes = []
 	for note in note_node_lst:
-		lst_nodes += [note[0]]
+		if note is not int:
+			lst_nodes += [note[0]]
 	var clicked_note = lst_nodes.find(node)
 	
 	if note_type == 1:
@@ -188,8 +208,8 @@ func set_cur_note_length(note_length):
 
 func _on_accidental_type_pressed():
 	if cur_midi_map == Globals.note_map_midi_sharp:
-		$accidentalType.text = "Current Accidental: Flat"
+		$CanvasLayer/accidentalType.text = "Current Accidental: Flat"
 		cur_midi_map = Globals.note_map_midi_flat
 	else:
-		$accidentalType.text = "Current Accidental: Sharp"
+		$CanvasLayer/accidentalType.text = "Current Accidental: Sharp"
 		cur_midi_map = Globals.note_map_midi_sharp

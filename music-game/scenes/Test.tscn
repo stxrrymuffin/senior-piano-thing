@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://biuec42i4l4vp"]
+[gd_scene load_steps=5 format=3 uid="uid://biuec42i4l4vp"]
 
 [ext_resource type="Script" uid="uid://cwvamhwj8au1c" path="res://scripts/transcription_test.gd" id="1_0d6la"]
 [ext_resource type="Texture2D" uid="uid://461665ijh60t" path="res://assets/music_staff.jpg" id="2_di7wo"]
 [ext_resource type="PackedScene" uid="uid://bspbpm7y5k202" path="res://scenes/note_select_button.tscn" id="3_0d6la"]
+[ext_resource type="Script" uid="uid://bvjornv38aim" path="res://scenes/camera.gd" id="3_di7wo"]
 
 [node name="test_midi" type="Node2D"]
 script = ExtResource("1_0d6la")
@@ -11,23 +12,26 @@ script = ExtResource("1_0d6la")
 texture = ExtResource("2_di7wo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_di7wo")
 
-[node name="Button" type="Button" parent="."]
-offset_left = -453.0
-offset_top = -242.0
-offset_right = -348.0
-offset_bottom = -211.0
-text = "Play Current"
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="accidentalType" type="Button" parent="."]
-offset_left = -298.0
-offset_top = -241.0
-offset_right = -244.0
-offset_bottom = -210.0
+[node name="Note Select Button" parent="CanvasLayer" instance=ExtResource("3_0d6la")]
+position = Vector2(31, 578)
+
+[node name="accidentalType" type="Button" parent="CanvasLayer"]
+offset_left = 911.0
+offset_top = 34.0
+offset_right = 1117.0
+offset_bottom = 65.0
 text = "Current Accidental: Sharp"
 
-[node name="Note Select Button" parent="." instance=ExtResource("3_0d6la")]
-position = Vector2(-446, 217)
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 783.0
+offset_top = 34.0
+offset_right = 888.0
+offset_bottom = 65.0
+text = "Play Current"
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="accidentalType" to="." method="_on_accidental_type_pressed"]
+[connection signal="pressed" from="CanvasLayer/accidentalType" to="." method="_on_accidental_type_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
