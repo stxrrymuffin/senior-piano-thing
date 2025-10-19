@@ -58,7 +58,7 @@ func _input(event):
 		delete_note()
 		
 	if event.is_action_pressed("Confirm"):
-		if note_node_lst[cur_note] is not int:
+		if note_node_lst[play_from] is not int:
 			confirm_note()
 		
 	#check if key input
@@ -87,7 +87,8 @@ func _input(event):
 
 func select_note(updated_note):
 	if updated_note == cur_note + 1:
-		if note_node_lst[cur_note] is not int:
+		print(note_lst[play_from])
+		if note_lst[play_from] is not int:
 			confirm_note()
 		else:
 			return
@@ -214,19 +215,20 @@ func place_rest(note_x, note_y, note_length):
 
 func _on_button_pressed():
 	#play current transcription when button pressed
-	var play_notes_lst = note_lst
-	if note_lst[-1] is int: play_notes_lst = note_lst.slice(0,-1)
+	var play_notes_lst = note_lst.slice(play_from,note_lst.size())
+	if note_lst[-1] is int: play_notes_lst = play_notes_lst.slice(0,-1)
 	for i in range(play_notes_lst.size()):
 		play_note(play_notes_lst[i])
-		if note_node_lst[i] is int: continue
-		if note_node_lst[i][0].note_length == 0:
+		if note_node_lst[play_from] is int: continue
+		if note_node_lst[play_from][0].note_length == 0:
 			await get_tree().create_timer(0.5).timeout
-		elif note_node_lst[i][0].note_length == 1:
+		elif note_node_lst[play_from][0].note_length == 1:
 			await get_tree().create_timer(1).timeout
-		elif note_node_lst[i][0].note_length == 2:
+		elif note_node_lst[play_from][0].note_length == 2:
 			await get_tree().create_timer(0.25).timeout
 		else:
 			await get_tree().create_timer(0.125).timeout
+		select_note(play_from+1)
 
 func note_on_click(node, note_type):
 	print(node)

@@ -4,7 +4,7 @@ var pressed_keys = []
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		print('hey')
+		#print('hey')
 		if event.echo:
 			return
 		if event.pressed:
