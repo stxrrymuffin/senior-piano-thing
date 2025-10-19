@@ -15,4 +15,4 @@ func _input(event):
 		else:
 			dragging = false
 	elif event is InputEventMouseMotion and dragging:
-		position = zoom * (mouse_start_pos - event.position) + screen_start_position
+		position = zoom * (mouse_start_pos - event.position) * (1/zoom[0])**2 + screen_start_position

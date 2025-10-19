@@ -12,6 +12,9 @@ script = ExtResource("1_0d6la")
 texture = ExtResource("2_di7wo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_left = -500
+limit_top = -300
+limit_right = 1500
 script = ExtResource("3_di7wo")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -32,6 +35,15 @@ offset_top = 34.0
 offset_right = 888.0
 offset_bottom = 65.0
 text = "Play Current"
+
+[node name="Selected Note" type="ColorRect" parent="."]
+z_index = 100
+offset_left = -212.0
+offset_top = -115.0
+offset_right = -141.0
+offset_bottom = 128.0
+mouse_filter = 2
+color = Color(0.121569, 0.815686, 0.992157, 0.490196)
 
 [connection signal="pressed" from="CanvasLayer/accidentalType" to="." method="_on_accidental_type_pressed"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

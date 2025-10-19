@@ -10,11 +10,15 @@ var ledger_line_scene = preload("res://scenes/ledger.tscn")
 var note_scene = preload("res://scenes/music_note.tscn")
 var a440_scene = preload("res://assets/A440.wav")
 
+@onready var highlight = $"Selected Note"
+
 const line_space = 22
 const note_space = 100
 
 var cur_midi_map = Globals.note_map_midi_sharp
 var cur_note_length = 0 #default, quarter
+
+var play_from = 0
 
 # A standard piano with 88 keys has keys from 21 to 108.
 # To get a different set of keys, modify these numbers.
@@ -41,6 +45,7 @@ func set_zoom(delta: Vector2) -> void:
 	$Camera2D.position += mouse_pos - new_mouse_pos
 	
 func _input(event):
+	print(PressedKeys.pressed_keys)
 	
 	#check if MIDI input
 	if event is InputEventMIDI:
@@ -63,6 +68,10 @@ func _input(event):
 			cur_octave += 1
 		elif event["keycode"] == 4194322:
 			cur_octave -= 1
+		elif event["keycode"] == 4194319:
+			select_note(max(play_from - 1, 0))
+		elif event["keycode"] == 4194321:
+			select_note(min(play_from + 1, cur_note))
 		#if key pressed is designated music note
 		elif [event['keycode']] in Globals.note_map_keyboard:
 			var new_note = Globals.note_map_keyboard[[event['keycode']]]
@@ -76,7 +85,22 @@ func _input(event):
 			else : if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				set_zoom(Vector2(-0.10,-0.10))
 
+func select_note(updated_note):
+	var y_pos = -115
+	play_from = updated_note
+	var x_pos = -212 + (play_from%12)*note_space
+	var init_y_pos = ($staff.texture.get_height() + 100)*floor(play_from/12)
+	print(init_y_pos)
+	print(x_pos)
+
+	highlight.position = Vector2(x_pos, y_pos + init_y_pos)
+
 func place_note(new_note):
+	#add new music staff if amt of notes on line 
+	if cur_note%12 == 0 and cur_note != 0:
+		var copied_node = $staff.duplicate()
+		$staff.get_parent().add_child(copied_node)
+		copied_node.position.y = $staff.position.y + ($staff.texture.get_height()+100)*floor(cur_note/12)
 	
 	#load in music note display
 	if note_node_lst[cur_note] is not int:
@@ -87,19 +111,21 @@ func place_note(new_note):
 			node.queue_free()
 	var new_note_scene = note_scene.instantiate()
 	new_note_scene.note_changed.connect(note_on_click)
-	var x_pos = -180 + cur_note*note_space
+	var x_pos = -180 + (cur_note%12)*note_space
 	var y_pos = 0
+	var init_y_pos = ($staff.texture.get_height() + 100)*floor(cur_note/12)
 	
+	var midi_input = false
 	#if keyboard input, set position to current octave & note
 	if new_note is not int:
 		y_pos = -1*line_space* (7 * cur_octave + Globals.pos_map[new_note])
-		new_note_scene.position = Vector2(x_pos, y_pos)
+		new_note_scene.position = Vector2(x_pos, y_pos + init_y_pos)
 		note_lst[cur_note] = new_note + str(cur_octave)
 		print(cur_midi_map)
 	#if midi input, set position to note played
 	else:
 		y_pos = -1*line_space* (7*(int(new_note/12)-4) + Globals.pos_map[cur_midi_map[new_note%12][0]])
-		new_note_scene.position = Vector2(x_pos, y_pos)
+		new_note_scene.position = Vector2(x_pos, y_pos + init_y_pos)
 		#show accidental
 		if "#" in cur_midi_map[new_note%12]:
 			new_note_scene.set_sharp()
@@ -107,6 +133,7 @@ func place_note(new_note):
 			new_note_scene.set_flat()
 		print(new_note)
 		note_lst[cur_note] = cur_midi_map[new_note%12] + str(int(new_note/12)-4)
+		midi_input = true
 	new_note_scene.set_note(cur_note_length)
 	add_child(new_note_scene)
 	play_note(note_lst[cur_note])
@@ -116,16 +143,19 @@ func place_note(new_note):
 	if y_pos >= 6*line_space:
 		for i in range(6*line_space, y_pos+1, line_space*2):
 			var ledger_line = ledger_line_scene.instantiate()
-			ledger_line.position = Vector2(x_pos, i)
+			ledger_line.position = Vector2(x_pos, i + init_y_pos)
 			add_child(ledger_line)
 			note_node_lst[cur_note] += [ledger_line]
 	# too low of a note, place ledger line
 	elif y_pos <= -6*line_space:
 		for i in range(-6*line_space, y_pos-1, -line_space*2):
 			var ledger_line = ledger_line_scene.instantiate()
-			ledger_line.position = Vector2(x_pos, i)
+			ledger_line.position = Vector2(x_pos, i + init_y_pos)
 			add_child(ledger_line)
 			note_node_lst[cur_note] += [ledger_line]
+	
+	if note_node_lst[cur_note] is not int and midi_input:
+		confirm_note()
 			
 func confirm_note():
 	# on enter, "confirms" note and adds to list
@@ -154,18 +184,26 @@ func delete_note():
 	print(note_node_lst)
 	print(note_lst)
 	#if there is already a temporary note selected, delete it
-	if note_node_lst[-1] is not int: 
-		for node in note_node_lst[-1]:
+	if note_node_lst[play_from] is not int: 
+		var note_x = note_node_lst[play_from][0].position.x
+		var note_y = note_node_lst[play_from][0].position.y
+		var note_length = note_node_lst[play_from][0].note_length
+		for node in note_node_lst[play_from]:
 			node.queue_free()
-		note_node_lst[-1] = 0
-		note_lst[-1] = 0
+		place_rest(note_x, note_y, note_length)
+		note_node_lst[play_from] = 0
+		note_lst[play_from] = 0
 	#else, delete prev confirmed note
-	elif cur_note > 0:
-		for node in note_node_lst[-2]:
-			node.queue_free()
-		note_node_lst.remove_at(note_node_lst.size()-2)
-		note_lst.remove_at(note_lst.size()-2)
-		cur_note -= 1
+	#elif cur_note > 0:
+	#	for node in note_node_lst[-2]:
+	#		node.queue_free()
+	#	note_node_lst.remove_at(note_node_lst.size()-2)
+	#	note_lst.remove_at(note_lst.size()-2)
+	#	cur_note -= 1
+	
+func place_rest(note_x, note_y, note_length):
+	print("place rest")
+	print(note_x, note_y, note_length)
 
 func _on_button_pressed():
 	#play current transcription when button pressed
@@ -194,6 +232,8 @@ func note_on_click(node, note_type):
 		if note is not int:
 			lst_nodes += [note[0]]
 	var clicked_note = lst_nodes.find(node)
+	
+	select_note(clicked_note)
 	
 	if note_type == 1:
 		note_lst[clicked_note] = note_lst[clicked_note][0] + "#" + note_lst[clicked_note].substr(1,note_lst[clicked_note].length())
