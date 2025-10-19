@@ -195,7 +195,7 @@ func delete_note():
 			node.queue_free()
 		place_rest(note_x, note_y, note_length)
 		#note_node_lst[play_from] = 0
-		note_lst[play_from] = 0
+		note_lst[play_from] = 1
 	#else, delete prev confirmed note
 	#elif cur_note > 0:
 	#	for node in note_node_lst[-2]:
@@ -208,15 +208,17 @@ func place_rest(note_x, note_y, note_length):
 	print("place rest")
 	print(note_x, note_y, note_length)
 	var rest_node = rest_scene.instantiate()
+	rest_node.rest_changed.connect(rest_on_click)
 	rest_node.position = Vector2(note_x, note_y)
 	add_child(rest_node)
+	rest_node.set_note(note_length)
 	note_node_lst[play_from] = [rest_node]
 	print(note_node_lst)
 
 func _on_button_pressed():
 	#play current transcription when button pressed
 	var play_notes_lst = note_lst.slice(play_from,note_lst.size())
-	if note_lst[-1] is int: play_notes_lst = play_notes_lst.slice(0,-1)
+	if note_lst[-1] is int and note_lst[-1] == 0: play_notes_lst = play_notes_lst.slice(0,-1)
 	for i in range(play_notes_lst.size()):
 		play_note(play_notes_lst[i])
 		if note_node_lst[play_from] is int: continue
@@ -228,12 +230,14 @@ func _on_button_pressed():
 			await get_tree().create_timer(0.25).timeout
 		else:
 			await get_tree().create_timer(0.125).timeout
-		select_note(play_from+1)
+		if i != play_notes_lst.size()-1:
+			select_note(play_from+1)
 
 func note_on_click(node, note_type):
 	print(node)
 	print(note_type)
 	print(note_lst[cur_note])
+	print(note_lst)
 	
 	#TODO make this more efficient
 	var lst_nodes = []
@@ -249,6 +253,14 @@ func note_on_click(node, note_type):
 	else:
 		note_lst[clicked_note] = note_lst[clicked_note][0] + note_lst[clicked_note].substr(2,note_lst[clicked_note].length())
 	play_note(note_lst[clicked_note])
+	select_note(clicked_note)
+	
+func rest_on_click(node, note_length):
+	var lst_nodes = []
+	for note in note_node_lst:
+		if note is not int:
+			lst_nodes += [note[0]]
+	var clicked_note = lst_nodes.find(node)
 	select_note(clicked_note)
 	
 func set_cur_note_length(note_length):

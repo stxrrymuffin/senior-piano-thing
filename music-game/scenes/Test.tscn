@@ -12,9 +12,10 @@ script = ExtResource("1_0d6la")
 texture = ExtResource("2_di7wo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.7, 0.7)
 limit_left = -500
 limit_top = -300
-limit_right = 1500
+limit_right = 1200
 script = ExtResource("3_di7wo")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
