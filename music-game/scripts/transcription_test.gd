@@ -14,7 +14,8 @@ var rest_scene = preload("res://scenes/rest.tscn")
 @onready var highlight = $"Selected Note"
 
 const line_space = 22
-const note_space = 100
+const note_space = 120
+const notes_per_line = 10
 
 var cur_midi_map = Globals.note_map_midi_sharp
 var cur_note_length = 0 #default, quarter
@@ -88,14 +89,14 @@ func _input(event):
 func select_note(updated_note):
 	if updated_note == cur_note + 1:
 		print(note_lst[play_from])
-		if note_lst[play_from] is not int:
+		if note_lst[play_from] is not int or note_lst[play_from] != 0:
 			confirm_note()
 		else:
 			return
 	var y_pos = -115
 	play_from = updated_note
-	var x_pos = -212 + (play_from%12)*note_space
-	var init_y_pos = ($staff.texture.get_height() + 100)*floor(play_from/12)
+	var x_pos = -212 + (play_from%notes_per_line)*note_space
+	var init_y_pos = ($staff.texture.get_height() + 100)*floor(play_from/notes_per_line)
 
 	highlight.position = Vector2(x_pos, y_pos + init_y_pos)
 	play_note(note_lst[play_from])
@@ -103,10 +104,10 @@ func select_note(updated_note):
 func place_note(new_note, note_idx):
 	print(note_node_lst)
 	#add new music staff if amt of notes on line 
-	if note_idx%12 == 0 and note_idx != 0:
+	if note_idx%notes_per_line == 0 and note_idx != 0:
 		var copied_node = $staff.duplicate()
 		$staff.get_parent().add_child(copied_node)
-		copied_node.position.y = $staff.position.y + ($staff.texture.get_height()+100)*floor(note_idx/12)
+		copied_node.position.y = $staff.position.y + ($staff.texture.get_height()+100)*floor(note_idx/notes_per_line)
 	
 	#load in music note display
 	if note_node_lst[note_idx] is not int:
@@ -117,9 +118,9 @@ func place_note(new_note, note_idx):
 			node.queue_free()
 	var new_note_scene = note_scene.instantiate()
 	new_note_scene.note_changed.connect(note_on_click)
-	var x_pos = -180 + (note_idx%12)*note_space
+	var x_pos = -180 + (note_idx%notes_per_line)*note_space
 	var y_pos = 0
-	var init_y_pos = ($staff.texture.get_height() + 100)*floor(note_idx/12)
+	var init_y_pos = ($staff.texture.get_height() + 100)*floor(note_idx/notes_per_line)
 	
 	var midi_input = false
 	#if keyboard input, set position to current octave & note
@@ -206,10 +207,10 @@ func delete_note():
 	
 func place_rest(note_x, note_y, note_length):
 	print("place rest")
-	print(note_x, note_y, note_length)
+	print(note_x, ($staff.texture.get_height() + 100)*floor(play_from/notes_per_line), note_length)
 	var rest_node = rest_scene.instantiate()
 	rest_node.rest_changed.connect(rest_on_click)
-	rest_node.position = Vector2(note_x, note_y)
+	rest_node.position = Vector2(note_x, ($staff.texture.get_height() + 100)*floor(play_from/notes_per_line))
 	add_child(rest_node)
 	rest_node.set_note(note_length)
 	note_node_lst[play_from] = [rest_node]
