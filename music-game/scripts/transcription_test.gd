@@ -22,6 +22,8 @@ var cur_note_length = 0 #default, quarter
 
 var play_from = 0
 
+var tempo = 120 #default
+
 # A standard piano with 88 keys has keys from 21 to 108.
 # To get a different set of keys, modify these numbers.
 # A maximally extended 108-key piano goes from 12 to 119.
@@ -224,13 +226,16 @@ func _on_button_pressed():
 		play_note(play_notes_lst[i])
 		if note_node_lst[play_from] is int: continue
 		if note_node_lst[play_from][0].note_length == 0:
-			await get_tree().create_timer(0.5).timeout
+			print('hi')
+			print((60)/float(tempo))
+			print(tempo)
+			await get_tree().create_timer((60)/float(tempo)).timeout
 		elif note_node_lst[play_from][0].note_length == 1:
-			await get_tree().create_timer(1).timeout
+			await get_tree().create_timer(2*60/tempo).timeout
 		elif note_node_lst[play_from][0].note_length == 2:
-			await get_tree().create_timer(0.25).timeout
+			await get_tree().create_timer(0.5*60/tempo).timeout
 		else:
-			await get_tree().create_timer(0.125).timeout
+			await get_tree().create_timer(0.25*60/tempo).timeout
 		if i != play_notes_lst.size()-1:
 			select_note(play_from+1)
 
