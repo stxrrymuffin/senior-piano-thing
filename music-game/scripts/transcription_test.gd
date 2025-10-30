@@ -233,6 +233,7 @@ func _on_button_pressed():
 	var play_notes_lst = note_lst.slice(play_from,note_lst.size())
 	if note_lst[-1] is int and note_lst[-1] == 0: play_notes_lst = play_notes_lst.slice(0,-1)
 	
+	$CanvasLayer/Button.disabled = true
 	for i in range(play_notes_lst.size()):
 		play_note(play_notes_lst[i])
 		if note_node_lst[play_from] is int: continue
@@ -249,6 +250,7 @@ func _on_button_pressed():
 			await get_tree().create_timer(0.25*60/tempo).timeout
 		if i != play_notes_lst.size()-1:
 			select_note(play_from+1)
+	$CanvasLayer/Button.disabled = false
 
 func note_on_click(node, note_type):
 	print(node)
