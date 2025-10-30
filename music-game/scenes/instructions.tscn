@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c63moh6x18lkl"]
 
-[ext_resource type="Texture2D" uid="uid://eybdx5vfah1i" path="res://icon.svg" id="1_dkfqi"]
 [ext_resource type="Script" uid="uid://ueyuuensfjm2" path="res://scenes/instructions.gd" id="1_nisbi"]
+[ext_resource type="Texture2D" uid="uid://blvmm10g3qluk" path="res://assets/return_arrow.png" id="2_nisbi"]
 
 [node name="Instructions" type="Node2D"]
 script = ExtResource("1_nisbi")
@@ -21,10 +21,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureButton" type="TextureButton" parent="."]
-offset_left = 10.0
-offset_top = 507.0
-offset_right = 138.0
-offset_bottom = 635.0
-texture_normal = ExtResource("1_dkfqi")
+offset_left = 9.0
+offset_top = 531.0
+offset_right = 521.0
+offset_bottom = 1043.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("2_nisbi")
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

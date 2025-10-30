@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkuuqeaw2l5eh"
-path="res://.godot/imported/half_rest.png-caf9d9e07f29453168a98f7e6de60eec.ctex"
+uid="uid://blvmm10g3qluk"
+path="res://.godot/imported/return_arrow.png-ac0e87497a679a7001c7d49663ade8d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/half_rest.png"
-dest_files=["res://.godot/imported/half_rest.png-caf9d9e07f29453168a98f7e6de60eec.ctex"]
+source_file="res://assets/return_arrow.png"
+dest_files=["res://.godot/imported/return_arrow.png-ac0e87497a679a7001c7d49663ade8d4.ctex"]
 
 [params]
 

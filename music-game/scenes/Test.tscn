@@ -1,15 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://biuec42i4l4vp"]
+[gd_scene load_steps=7 format=3 uid="uid://biuec42i4l4vp"]
 
 [ext_resource type="Script" uid="uid://cwvamhwj8au1c" path="res://scripts/transcription_test.gd" id="1_0d6la"]
+[ext_resource type="Texture2D" uid="uid://dkf1gwo3haoxh" path="res://assets/music_staff2.jpg" id="2_amo3t"]
 [ext_resource type="Texture2D" uid="uid://461665ijh60t" path="res://assets/music_staff.jpg" id="2_di7wo"]
 [ext_resource type="PackedScene" uid="uid://bspbpm7y5k202" path="res://scenes/note_select_button.tscn" id="3_0d6la"]
 [ext_resource type="Script" uid="uid://bvjornv38aim" path="res://scenes/camera.gd" id="3_di7wo"]
+[ext_resource type="Texture2D" uid="uid://blvmm10g3qluk" path="res://assets/return_arrow.png" id="5_iscks"]
 
 [node name="test_midi" type="Node2D"]
 script = ExtResource("1_0d6la")
 
 [node name="staff" type="Sprite2D" parent="."]
 texture = ExtResource("2_di7wo")
+
+[node name="staff2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_amo3t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.7, 0.7)
@@ -19,6 +25,22 @@ limit_right = 1200
 script = ExtResource("3_di7wo")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer"]
+offset_left = 778.0
+offset_top = 110.0
+offset_right = 981.0
+offset_bottom = 126.0
+min_value = 20.0
+max_value = 200.0
+value = 120.0
+
+[node name="Label" type="Label" parent="CanvasLayer/HSlider"]
+layout_mode = 0
+offset_top = -23.0
+offset_right = 193.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Current Tempo: 120 BPM"
 
 [node name="Note Select Button" parent="CanvasLayer" instance=ExtResource("3_0d6la")]
 position = Vector2(31, 578)
@@ -37,6 +59,13 @@ offset_right = 888.0
 offset_bottom = 65.0
 text = "Play Current"
 
+[node name="instruc_button" type="Button" parent="CanvasLayer"]
+offset_left = 991.0
+offset_top = 92.0
+offset_right = 1117.0
+offset_bottom = 123.0
+text = "Instructions"
+
 [node name="Selected Note" type="ColorRect" parent="."]
 z_index = 100
 offset_left = -212.0
@@ -46,5 +75,49 @@ offset_bottom = 128.0
 mouse_filter = 2
 color = Color(0.121569, 0.815686, 0.992157, 0.490196)
 
+[node name="instructions" type="Node2D" parent="."]
+visible = false
+z_index = 300
+position = Vector2(-544, -316)
+scale = Vector2(1.5, 1.5)
+
+[node name="ColorRect" type="ColorRect" parent="instructions"]
+offset_left = 138.0
+offset_top = 129.0
+offset_right = 1010.0
+offset_bottom = 531.0
+color = Color(0.912289, 0.912289, 0.912289, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="instructions"]
+offset_left = 304.667
+offset_top = -72.0
+offset_right = 704.667
+offset_bottom = 576.0
+scale = Vector2(1.3, 1.3)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Instructions:
+- Middle keypad is for music notes; (A, S, D, F, G, H, J, K)) correspond to (C, D, E, F, G, H, A, B, C)
+- Use up & down arrows to change octaves
+- Enter to confirm a note
+- Use left and right arrow keys to move between notes
+- Click on note to switch between sharp, flat, or no accidental
+- Press play to hear your creation !!"
+tab_size = 6
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureButton" type="TextureButton" parent="instructions"]
+offset_left = 970.0
+offset_top = 148.0
+offset_right = 1482.0
+offset_bottom = 660.0
+scale = Vector2(0.05, 0.05)
+texture_normal = ExtResource("5_iscks")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="value_changed" from="CanvasLayer/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="pressed" from="CanvasLayer/accidentalType" to="." method="_on_accidental_type_pressed"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/instruc_button" to="." method="_on_instruc_button_pressed"]
+[connection signal="pressed" from="instructions/TextureButton" to="." method="_on_texture_button_pressed"]

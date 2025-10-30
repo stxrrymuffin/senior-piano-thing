@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://ct33o4xlf4jm7"]
 
 [ext_resource type="Script" uid="uid://dwa6r50nr0hg5" path="res://scenes/rest.gd" id="1_4g80i"]
-[ext_resource type="Texture2D" uid="uid://d3ebb7wdi4p1e" path="res://assets/eighth_rest.png" id="1_cs0ti"]
-[ext_resource type="Texture2D" uid="uid://bfvnhl2yx5cm8" path="res://assets/half_rest.png" id="2_4g80i"]
+[ext_resource type="Texture2D" uid="uid://bwe6sasp0u40c" path="res://assets/eighth_rest.png" id="1_cs0ti"]
+[ext_resource type="Texture2D" uid="uid://bkuuqeaw2l5eh" path="res://assets/half_rest.png" id="2_4g80i"]
 [ext_resource type="Texture2D" uid="uid://byd5asmcmtghj" path="res://assets/quarter_rest.png" id="3_lcn62"]
-[ext_resource type="Texture2D" uid="uid://c3bfl2n5a4mpc" path="res://assets/16th_rest.png" id="4_7q1m4"]
+[ext_resource type="Texture2D" uid="uid://m2llg3ul5a3p" path="res://assets/16th_rest.png" id="4_7q1m4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_krbhq"]
 animations = [{

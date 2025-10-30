@@ -21,6 +21,7 @@ var cur_midi_map = Globals.note_map_midi_sharp
 var cur_note_length = 0 #default, quarter
 
 var play_from = 0
+var cur_playing = false
 
 var tempo = 120 #default
 
@@ -80,13 +81,14 @@ func _input(event):
 			var new_note = Globals.note_map_keyboard[[event['keycode']]]
 			place_note(new_note,play_from)
 	
-	if event is InputEventMouse:
-		if event.is_pressed() and not event.is_echo():
-			var mouse_position = event.position
-			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				set_zoom(Vector2(0.10,0.10))
-			else : if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				set_zoom(Vector2(-0.10,-0.10))
+	#scroll using mouse wheel
+	#if event is InputEventMouse:
+	#	if event.is_pressed() and not event.is_echo():
+	#		var mouse_position = event.position
+	#		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+	#			set_zoom(Vector2(1,1))
+	#		else : if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+	#			set_zoom(Vector2(-1,1))
 
 func select_note(updated_note):
 	if updated_note == cur_note + 1:
@@ -105,8 +107,16 @@ func select_note(updated_note):
 
 func place_note(new_note, note_idx):
 	print(note_node_lst)
-	#add new music staff if amt of notes on line 
-	if note_idx%notes_per_line == 0 and note_idx != 0:
+	
+	#add additional lines if amt of notes on line is maxed out
+	if note_idx%notes_per_line == notes_per_line/2 and note_idx == (len(note_node_lst)-1):
+		var copied_node = $staff2.duplicate()
+		$staff2.get_parent().add_child(copied_node)
+		copied_node.position.y = $staff.position.y + ($staff.texture.get_height()+100)*floor(note_idx/notes_per_line)
+		copied_node.position.x = $staff.position.x + $staff.texture.get_width() - 200
+		copied_node.visible = true
+	#add new music staff if amt of notes on line is maxed out
+	if note_idx%notes_per_line == 0 and note_idx != 0 and note_idx == (len(note_node_lst)-1):
 		var copied_node = $staff.duplicate()
 		$staff.get_parent().add_child(copied_node)
 		copied_node.position.y = $staff.position.y + ($staff.texture.get_height()+100)*floor(note_idx/notes_per_line)
@@ -222,6 +232,7 @@ func _on_button_pressed():
 	#play current transcription when button pressed
 	var play_notes_lst = note_lst.slice(play_from,note_lst.size())
 	if note_lst[-1] is int and note_lst[-1] == 0: play_notes_lst = play_notes_lst.slice(0,-1)
+	
 	for i in range(play_notes_lst.size()):
 		play_note(play_notes_lst[i])
 		if note_node_lst[play_from] is int: continue
@@ -279,3 +290,15 @@ func _on_accidental_type_pressed():
 	else:
 		$CanvasLayer/accidentalType.text = "Current Accidental: Sharp"
 		cur_midi_map = Globals.note_map_midi_sharp
+
+
+func _on_texture_button_pressed():
+	$instructions.visible = false
+
+func _on_instruc_button_pressed():
+	$instructions.visible = true
+
+
+func _on_h_slider_value_changed(value):
+	tempo = value
+	$CanvasLayer/HSlider/Label.text = "Current Tempo: " + str(int(tempo)) + " BPM"

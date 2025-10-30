@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkuuqeaw2l5eh"
-path="res://.godot/imported/half_rest.png-caf9d9e07f29453168a98f7e6de60eec.ctex"
+uid="uid://dkf1gwo3haoxh"
+path="res://.godot/imported/music_staff2.jpg-104529654e869b52f3a48a15ac68398f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/half_rest.png"
-dest_files=["res://.godot/imported/half_rest.png-caf9d9e07f29453168a98f7e6de60eec.ctex"]
+source_file="res://assets/music_staff2.jpg"
+dest_files=["res://.godot/imported/music_staff2.jpg-104529654e869b52f3a48a15ac68398f.ctex"]
 
 [params]
 
