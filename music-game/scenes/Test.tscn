@@ -83,15 +83,19 @@ offset_bottom = 531.0
 color = Color(0.912289, 0.912289, 0.912289, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/instructions"]
-offset_left = 189.0
-offset_top = -93.0
-offset_right = 789.0
-offset_bottom = 555.0
-scale = Vector2(1.3, 1.3)
+offset_left = 290.0
+offset_top = 13.0
+offset_right = 890.0
+offset_bottom = 661.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("5_qca6q")
-text = "Instructions:
+theme_override_fonts/bold_italics_font = ExtResource("5_qca6q")
+theme_override_font_sizes/normal_font_size = 17
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Instructions:[/b]
 
+- Use mouse to drag
 - Middle keypad is for music notes; keys [A, S, D, F, G, H, J, K] correspond to the notes [C, D, E, F, G, A, B, C]
 - Use UP and DOWN ARROWS to change octaves
 - Press ENTER or RIGHT ARROW to confirm a note

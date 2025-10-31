@@ -22,14 +22,13 @@ theme_override_font_sizes/font_size = 10
 text = "Currently Playing: Mozart Piano Concerto no. 21 in C major, K. 467 - II. Andante by Markus Staab"
 
 [node name="Label" type="Label" parent="."]
-offset_left = 2.0
-offset_top = 186.0
-offset_right = 577.0
-offset_bottom = 209.0
-scale = Vector2(2, 2)
+offset_left = 220.0
+offset_top = 223.0
+offset_right = 951.0
+offset_bottom = 286.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_3yumr")
-theme_override_font_sizes/font_size = 31
+theme_override_font_sizes/font_size = 62
 text = "cool music transcriber !!"
 horizontal_alignment = 1
 vertical_alignment = 1

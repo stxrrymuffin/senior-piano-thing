@@ -3,7 +3,7 @@ extends Node2D
 var cur_note = 0
 var note_lst = [0]
 var note_node_lst = [0]
-var note_ledger_lst = [0] #TODO
+var note_ledger_lst = [0] 
 var cur_octave = 0
 
 var ledger_line_scene = preload("res://scenes/ledger.tscn")
@@ -32,10 +32,10 @@ var tempo = 120 #default
 # 49-key from 36 to 84, 37-key from 41 to 77, and 25-key
 # from 48 to 72. Middle C is pitch number 60, A440 is 69.
 func _ready():
-	DiscordRPC.app_id = 1413361468811776020
-	DiscordRPC.state = "Playing"
-	DiscordRPC.details = "im suffering"
-	DiscordRPC.refresh()
+	#DiscordRPC.app_id = 1413361468811776020
+	#DiscordRPC.state = "Playing"
+	#DiscordRPC.details = "im suffering"
+	#DiscordRPC.refresh()
 	OS.open_midi_inputs()
 	print(OS.get_connected_midi_inputs())
 	$CanvasLayer/Button.focus_mode = Control.FOCUS_NONE 
@@ -58,15 +58,15 @@ func _input(event):
 			var new_note = event.pitch
 			place_note(new_note, play_from)
 			
-	if event.is_action_pressed("Delete"):
+	if event.is_action_pressed("Delete") and not cur_playing:
 		delete_note()
 		
-	if event.is_action_pressed("Confirm"):
+	if event.is_action_pressed("Confirm") and not cur_playing:
 		if note_node_lst[play_from] is not int:
 			confirm_note()
 		
 	#check if key input
-	elif event is InputEventKey and not event.echo and event.pressed:
+	elif event is InputEventKey and not event.echo and event.pressed and not cur_playing:
 		#print(event['keycode'])
 		if event["keycode"] == 4194320:
 			cur_octave += 1
@@ -218,15 +218,14 @@ func delete_note():
 	#	cur_note -= 1
 	
 func place_rest(note_x, note_y, note_length):
-	print("place rest")
-	print(note_x, ($staff.texture.get_height() + 100)*floor(play_from/notes_per_line), note_length)
+	#instantiate & place rest node
 	var rest_node = rest_scene.instantiate()
 	rest_node.rest_changed.connect(rest_on_click)
 	rest_node.position = Vector2(note_x, ($staff.texture.get_height() + 100)*floor(play_from/notes_per_line))
 	add_child(rest_node)
 	rest_node.set_note(note_length)
+	#replace nodes at that pos in the node list
 	note_node_lst[play_from] = [rest_node]
-	print(note_node_lst)
 
 func _on_button_pressed():
 	#play current transcription when button pressed
@@ -234,13 +233,11 @@ func _on_button_pressed():
 	if note_lst[-1] is int and note_lst[-1] == 0: play_notes_lst = play_notes_lst.slice(0,-1)
 	
 	$CanvasLayer/Button.disabled = true
+	cur_playing = true
 	for i in range(play_notes_lst.size()):
 		play_note(play_notes_lst[i])
 		if note_node_lst[play_from] is int: continue
 		if note_node_lst[play_from][0].note_length == 0:
-			print('hi')
-			print((60)/float(tempo))
-			print(tempo)
 			await get_tree().create_timer((60)/float(tempo)).timeout
 		elif note_node_lst[play_from][0].note_length == 1:
 			await get_tree().create_timer(2*60/tempo).timeout
@@ -251,6 +248,7 @@ func _on_button_pressed():
 		if i != play_notes_lst.size()-1:
 			select_note(play_from+1)
 	$CanvasLayer/Button.disabled = false
+	cur_playing = false
 
 func note_on_click(node, note_type):
 	if cur_playing: return
@@ -266,6 +264,7 @@ func note_on_click(node, note_type):
 			lst_nodes += [note[0]]
 	var clicked_note = lst_nodes.find(node)
 	
+	#replace note w/ # b or natural
 	if note_type == 1:
 		note_lst[clicked_note] = note_lst[clicked_note][0] + "#" + note_lst[clicked_note].substr(1,note_lst[clicked_note].length())
 	elif note_type == -1:
@@ -294,7 +293,6 @@ func _on_accidental_type_pressed():
 	else:
 		$CanvasLayer/accidentalType.text = "MIDI Accidental: Sharp"
 		cur_midi_map = Globals.note_map_midi_sharp
-
 
 func _on_texture_button_pressed():
 	$CanvasLayer/instructions.visible = false
