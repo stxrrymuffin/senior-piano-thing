@@ -1,7 +1,7 @@
 # Welcome to stxrrymuffin's ✨*cool music notation app*✨!:D
 This project allows you to write down the music of your dreams; well, mostly.
 If you are a music nerd, you are limited to treble clef & quarter/half/eighth/sixteenth notes, *BUT* you 
-can still change the octave you are in using up & down arrow keys, delete notes with backspace to make rests, add accidentals, and switch up the tempo!
+can still change the octave you are in, delete notes to make rests, add in accidentals, and switch up the tempo!
 
 If you aren't a music nerd, I really encourage you to just play around by relying on your hearing! Try to make the melody of Twinkle Twinkle 
 or come up with your own awesome tune! 💃
