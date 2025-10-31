@@ -7,6 +7,9 @@ If you aren't a music nerd, I really encourage you to just play around by relyin
 or come up with your own awesome tune! 💃
 
 Check out more detailed instructions when you run the game!
+<p align="center" width="100%"><img src="sc_1.png" width=50%></p>
+<p align="center" width="100%"><img src="sc_2.png" width=50%></p>
+<p align="center" width="100%"><img src="sc_3.png" width=50%></p>
 
 ## Why I made this project
 I made this project as part of a long-term game I'm working on to gameify music transcription & music theory (both
