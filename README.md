@@ -10,6 +10,7 @@ Check out more detailed instructions when you run the game!
 <p align="center" width="100%"><img src="sc_1.png" width=50%></p>
 <p align="center" width="100%"><img src="sc_2.png" width=50%></p>
 <p align="center" width="100%"><img src="sc_3.png" width=50%></p>
+^guess what this ends up playing (answer: part of howl's moving castle !)
 
 ## Why I made this project
 I made this project as part of a long-term game I'm working on to gameify music transcription & music theory (both

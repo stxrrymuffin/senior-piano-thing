@@ -16,6 +16,7 @@ func set_note(note):
 	
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
+	if Globals.cur_playing: return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		set_note((note_length+1)%4)
 		emit_signal("rest_changed", self, note_length)

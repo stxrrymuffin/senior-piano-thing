@@ -21,7 +21,6 @@ var cur_midi_map = Globals.note_map_midi_sharp
 var cur_note_length = 0 #default, quarter
 
 var play_from = 0
-var cur_playing = false
 
 var tempo = 120 #default
 
@@ -58,15 +57,15 @@ func _input(event):
 			var new_note = event.pitch
 			place_note(new_note, play_from)
 			
-	if event.is_action_pressed("Delete") and not cur_playing:
+	if event.is_action_pressed("Delete") and not Globals.cur_playing:
 		delete_note()
 		
-	if event.is_action_pressed("Confirm") and not cur_playing:
+	if event.is_action_pressed("Confirm") and not Globals.cur_playing:
 		if note_node_lst[play_from] is not int:
 			confirm_note()
 		
 	#check if key input
-	elif event is InputEventKey and not event.echo and event.pressed and not cur_playing:
+	elif event is InputEventKey and not event.echo and event.pressed and not Globals.cur_playing:
 		#print(event['keycode'])
 		if event["keycode"] == 4194320:
 			cur_octave += 1
@@ -233,7 +232,7 @@ func _on_button_pressed():
 	if note_lst[-1] is int and note_lst[-1] == 0: play_notes_lst = play_notes_lst.slice(0,-1)
 	
 	$CanvasLayer/Button.disabled = true
-	cur_playing = true
+	Globals.cur_playing = true
 	for i in range(play_notes_lst.size()):
 		play_note(play_notes_lst[i])
 		if note_node_lst[play_from] is int: continue
@@ -248,10 +247,10 @@ func _on_button_pressed():
 		if i != play_notes_lst.size()-1:
 			select_note(play_from+1)
 	$CanvasLayer/Button.disabled = false
-	cur_playing = false
+	Globals.cur_playing = false
 
 func note_on_click(node, note_type):
-	if cur_playing: return
+	if Globals.cur_playing: return
 	print(node)
 	print(note_type)
 	print(note_lst[cur_note])
@@ -275,7 +274,7 @@ func note_on_click(node, note_type):
 	select_note(clicked_note)
 	
 func rest_on_click(node, note_length):
-	if cur_playing: return
+	if Globals.cur_playing: return
 	var lst_nodes = []
 	for note in note_node_lst:
 		if note is not int:

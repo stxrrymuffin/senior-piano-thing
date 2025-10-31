@@ -1,4 +1,5 @@
 extends Node
+var cur_playing = false
 const note_map_keyboard = {
 	[65]:"C",
 	[83]:"D",

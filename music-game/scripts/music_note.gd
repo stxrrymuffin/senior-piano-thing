@@ -5,6 +5,7 @@ var note_length := 1
 signal note_changed(note_type: int)
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
+	if Globals.cur_playing: return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if note_type == 0:
 			set_sharp()
