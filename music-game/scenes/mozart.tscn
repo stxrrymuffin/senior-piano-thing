@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://k65mprit22vo"]
+
+[ext_resource type="AudioStream" uid="uid://b1oio0j7ebg5q" path="res://assets/mozart_bgm.mp3" id="1_ujn3f"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_ujn3f")
+autoplay = true

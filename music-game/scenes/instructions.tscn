@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c63moh6x18lkl"]
+[gd_scene load_steps=4 format=3 uid="uid://c63moh6x18lkl"]
 
 [ext_resource type="Script" uid="uid://ueyuuensfjm2" path="res://scenes/instructions.gd" id="1_nisbi"]
 [ext_resource type="Texture2D" uid="uid://blvmm10g3qluk" path="res://assets/return_arrow.png" id="2_nisbi"]
+[ext_resource type="FontFile" uid="uid://bljbj8hlsg77m" path="res://assets/LowresPixel-Regular.otf" id="2_njqp3"]
 
 [node name="Instructions" type="Node2D"]
 script = ExtResource("1_nisbi")
@@ -10,12 +11,26 @@ script = ExtResource("1_nisbi")
 offset_right = 1152.0
 offset_bottom = 648.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_njqp3")
 text = "Instructions:
-- Middle keypad is for keys (A, S, D, F, G, H, J, K) correspond to (C, D, E, F, G, H, A, B, C)
-- Use up & down arrows to change octaves
-- Use left and right arrow keys to move between notes
-- Click on note to switch between sharp, flat, or no accidental
-- Press play to hear your creation !!"
+
+- Middle keypad is for music notes; keys [A, S, D, F, G, H, J, K] correspond to the notes [C, D, E, F, G, A, B, C]
+
+- Use UP and DOWN ARROWS to change octaves
+
+- Press ENTER or RIGHT ARROW to confirm a note
+
+- Use LEFT and RIGHT ARROWS to move between notes
+
+- Press BACKSPACE to DELETE a note / create a REST
+
+- LEFT CLICK on note to switch between sharp, flat, or no accidental
+
+- Press PLAY CURRENT to hear your creation !!
+
+- Experiment by changing the length of note & the tempo!! have fun! :)
+
+- PS: if connected to a MIDI keyboard, you may toggle accidentals between SHARP and FLAT. Other controls remain the same."
 tab_size = 6
 horizontal_alignment = 1
 vertical_alignment = 1

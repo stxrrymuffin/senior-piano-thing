@@ -253,6 +253,7 @@ func _on_button_pressed():
 	$CanvasLayer/Button.disabled = false
 
 func note_on_click(node, note_type):
+	if cur_playing: return
 	print(node)
 	print(note_type)
 	print(note_lst[cur_note])
@@ -275,6 +276,7 @@ func note_on_click(node, note_type):
 	select_note(clicked_note)
 	
 func rest_on_click(node, note_length):
+	if cur_playing: return
 	var lst_nodes = []
 	for note in note_node_lst:
 		if note is not int:
@@ -287,18 +289,18 @@ func set_cur_note_length(note_length):
 
 func _on_accidental_type_pressed():
 	if cur_midi_map == Globals.note_map_midi_sharp:
-		$CanvasLayer/accidentalType.text = "Current Accidental: Flat"
+		$CanvasLayer/accidentalType.text = "MIDI Accidental: Flat"
 		cur_midi_map = Globals.note_map_midi_flat
 	else:
-		$CanvasLayer/accidentalType.text = "Current Accidental: Sharp"
+		$CanvasLayer/accidentalType.text = "MIDI Accidental: Sharp"
 		cur_midi_map = Globals.note_map_midi_sharp
 
 
 func _on_texture_button_pressed():
-	$instructions.visible = false
+	$CanvasLayer/instructions.visible = false
 
 func _on_instruc_button_pressed():
-	$instructions.visible = true
+	$CanvasLayer/instructions.visible = true
 
 
 func _on_h_slider_value_changed(value):

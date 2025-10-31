@@ -1,18 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://dru2o6qs3uuxm"]
+[gd_scene load_steps=8 format=3 uid="uid://dru2o6qs3uuxm"]
 
 [ext_resource type="Script" uid="uid://ynlg10l46ldp" path="res://title_screen.gd" id="1_fgkus"]
+[ext_resource type="FontFile" uid="uid://bljbj8hlsg77m" path="res://assets/LowresPixel-Regular.otf" id="2_3yumr"]
+[ext_resource type="Texture2D" uid="uid://da7trsxd4am0d" path="res://assets/16th_note.png" id="2_dc4i4"]
+[ext_resource type="Texture2D" uid="uid://byd5asmcmtghj" path="res://assets/quarter_rest.png" id="3_e54dn"]
+[ext_resource type="Texture2D" uid="uid://b1ttfk31v003g" path="res://assets/sharp_symbol.png" id="4_3yumr"]
+[ext_resource type="Texture2D" uid="uid://dhqb3nfby5abf" path="res://assets/singing_emoji.webp" id="5_cs5ya"]
+[ext_resource type="PackedScene" uid="uid://k65mprit22vo" path="res://scenes/mozart.tscn" id="6_e54dn"]
 
 [node name="Title Screen" type="Node2D"]
 script = ExtResource("1_fgkus")
 
+[node name="Label2" type="Label" parent="."]
+offset_left = 681.0
+offset_top = 627.0
+offset_right = 1418.0
+offset_bottom = 650.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_3yumr")
+theme_override_font_sizes/font_size = 10
+text = "Currently Playing: Mozart Piano Concerto no. 21 in C major, K. 467 - II. Andante by Markus Staab"
+
 [node name="Label" type="Label" parent="."]
 offset_left = 2.0
-offset_top = 161.0
+offset_top = 186.0
 offset_right = 577.0
-offset_bottom = 184.0
+offset_bottom = 209.0
 scale = Vector2(2, 2)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "music transcription !!"
+theme_override_fonts/font = ExtResource("2_3yumr")
+theme_override_font_sizes/font_size = 31
+text = "cool music transcriber !!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -21,6 +39,7 @@ offset_left = 454.0
 offset_top = 345.0
 offset_right = 710.0
 offset_bottom = 397.0
+theme_override_fonts/font = ExtResource("2_3yumr")
 text = "Start"
 
 [node name="Button2" type="Button" parent="."]
@@ -28,7 +47,31 @@ offset_left = 461.0
 offset_top = 448.0
 offset_right = 706.0
 offset_bottom = 500.0
+theme_override_fonts/font = ExtResource("2_3yumr")
 text = "Instructions"
+
+[node name="16ThNote" type="Sprite2D" parent="."]
+position = Vector2(161, 440)
+rotation = -0.336749
+texture = ExtResource("2_dc4i4")
+
+[node name="QuarterRest" type="Sprite2D" parent="."]
+position = Vector2(1052, 249)
+rotation = 0.196007
+texture = ExtResource("3_e54dn")
+
+[node name="SharpSymbol" type="Sprite2D" parent="."]
+position = Vector2(115, 121)
+rotation = 0.220964
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_3yumr")
+
+[node name="SingingEmoji" type="Sprite2D" parent="."]
+position = Vector2(963, 488)
+scale = Vector2(-0.25, 0.253)
+texture = ExtResource("5_cs5ya")
+
+[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("6_e54dn")]
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

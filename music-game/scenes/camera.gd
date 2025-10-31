@@ -6,7 +6,7 @@ var screen_start_position
 var dragging = false
 
 
-func _input(event):
+func _unhandled_input(event):
 	if event.is_action("drag_camera"):
 		if event.is_pressed():
 			mouse_start_pos = event.position
