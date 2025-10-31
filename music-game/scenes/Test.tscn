@@ -32,6 +32,7 @@ offset_left = 778.0
 offset_top = 110.0
 offset_right = 981.0
 offset_bottom = 126.0
+focus_mode = 0
 min_value = 20.0
 max_value = 200.0
 value = 120.0
@@ -52,6 +53,7 @@ offset_left = 911.0
 offset_top = 34.0
 offset_right = 1117.0
 offset_bottom = 65.0
+focus_mode = 0
 theme_override_fonts/font = ExtResource("5_qca6q")
 text = "MIDI Accidental: Sharp"
 
@@ -60,6 +62,7 @@ offset_left = 783.0
 offset_top = 34.0
 offset_right = 888.0
 offset_bottom = 65.0
+focus_mode = 0
 theme_override_fonts/font = ExtResource("5_qca6q")
 text = "Play Current"
 
@@ -68,6 +71,7 @@ offset_left = 991.0
 offset_top = 92.0
 offset_right = 1117.0
 offset_bottom = 123.0
+focus_mode = 0
 theme_override_fonts/font = ExtResource("5_qca6q")
 text = "Instructions"
 
@@ -118,6 +122,7 @@ offset_top = 148.0
 offset_right = 1482.0
 offset_bottom = 660.0
 scale = Vector2(0.05, 0.05)
+focus_mode = 0
 texture_normal = ExtResource("5_iscks")
 metadata/_edit_use_anchors_ = true
 
