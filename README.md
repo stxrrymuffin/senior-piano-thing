@@ -35,7 +35,10 @@ Finally, I revamped some of the assets so the project wouldn't look so ugly:(, a
 ## Struggles & what I learned
 Some things I struggled with were expanding on my project each time I needed to add a more complicated component. It often resulted in me
 having to rework a lot of how I was storing information on each note. For example, I initially just had a list of notes and their corresponding nodes,
-but as soon as I added in ledger lines, I suddenly needed lists of lists to store everything properly.
-In general, I learned a lot about how to work in Godot 4, which I honestly haven't had too much experience with yet.
+but as soon as I added in ledger lines, I suddenly needed lists of lists to store everything properly. In the future, I'm probably going to 
+do some more detailed planning regarding how I plan on approaching the backend before I immediately jump in coding.
+
+In general, I learned a lot about how to work in Godot 4, which I honestly haven't had too much experience with yet! I mainly worked in
+Godot 3 in the past, so it was nice seeing some of the new updates that came with Godot 4.
 Also, since I've been working on and off on this project for about two months, I've realized that it's really important to leave comments on my code
-(even then, it still takes some time to figure things out)!
+(even then, it still takes time to figure things out)!
