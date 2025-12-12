@@ -1,0 +1,151 @@
+[gd_scene load_steps=16 format=3 uid="uid://bwqnom87hvbpp"]
+
+[ext_resource type="Shader" uid="uid://b1gxl6otkvibm" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="1_hvagc"]
+[ext_resource type="Script" uid="uid://caevakm87nk02" path="res://main_world_scenes/pixel_test.gd" id="1_oxday"]
+
+[sub_resource type="Environment" id="Environment_jvttq"]
+background_mode = 3
+background_color = Color(0.775063, 0.775063, 0.775063, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.333017, 0.537533, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_6113o"]
+offsets = PackedFloat32Array(0, 0.53125, 1)
+colors = PackedColorArray(0, 0, 1, 1, 0.560784, 1, 0.560784, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xnx2h"]
+gradient = SubResource("Gradient_6113o")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xnx2h"]
+render_priority = 0
+shader = ExtResource("1_hvagc")
+shader_parameter/albedo = Color(1, 0, 1, 1)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = true
+shader_parameter/ramp = SubResource("GradientTexture1D_xnx2h")
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
+
+[sub_resource type="BoxMesh" id="BoxMesh_6l2jf"]
+material = SubResource("ShaderMaterial_xnx2h")
+
+[sub_resource type="Gradient" id="Gradient_oxday"]
+offsets = PackedFloat32Array(0, 0.546875, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.501961, 1, 0.501961, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6113o"]
+gradient = SubResource("Gradient_oxday")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6113o"]
+render_priority = 0
+shader = ExtResource("1_hvagc")
+shader_parameter/albedo = Color(0.810994, 1, 0.995986, 1)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = true
+shader_parameter/ramp = SubResource("GradientTexture1D_6113o")
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oxday"]
+material = SubResource("ShaderMaterial_6113o")
+
+[sub_resource type="Gradient" id="Gradient_xnx2h"]
+offsets = PackedFloat32Array(0, 0.546875)
+colors = PackedColorArray(0, 0.423529, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6l2jf"]
+gradient = SubResource("Gradient_xnx2h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxday"]
+render_priority = 0
+shader = ExtResource("1_hvagc")
+shader_parameter/albedo = Color(0.62863, 0.973641, 0.693441, 1)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 2
+shader_parameter/wrap = -0.609
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = true
+shader_parameter/ramp = SubResource("GradientTexture1D_6l2jf")
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6113o"]
+material = SubResource("ShaderMaterial_oxday")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_oxday")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+size = Vector2i(384, 216)
+
+[node name="CameraRig" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraRig"]
+transform = Transform3D(-0.174031, -0.425809, 0.887919, -0.00707984, 0.902196, 0.431268, -0.984715, 0.0687678, -0.160025, 4.44088, 2.4397, -0.989558)
+projection = 1
+size = 1.03825
+
+[node name="World" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/World"]
+transform = Transform3D(-0.998949, 3.37793e-10, -0.0458336, -0.0362132, -0.612976, 0.789271, -0.0280949, 0.790102, 0.612332, 0, 4.9053, 3.34349)
+light_energy = 0.36
+shadow_enabled = true
+shadow_normal_bias = 0.9
+shadow_opacity = 0.5
+directional_shadow_split_1 = 0.05
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport/World"]
+environment = SubResource("Environment_jvttq")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World"]
+transform = Transform3D(0.417534, 0, 0, 0, 0.30699, 0, 0, 0, 0.5, -0.38858, 0.141931, -0.15271)
+mesh = SubResource("BoxMesh_6l2jf")
+skeleton = NodePath("../MeshInstance3D2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World"]
+transform = Transform3D(0.417534, 0, 0, 0, 0.30699, 0, 0, 0, 0.5, 0.368896, 0.20994, 0)
+mesh = SubResource("CylinderMesh_oxday")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_6113o")
+skeleton = NodePath("")
