@@ -1,17 +1,36 @@
-[gd_scene load_steps=16 format=3 uid="uid://bwqnom87hvbpp"]
+[gd_scene load_steps=21 format=3 uid="uid://bwqnom87hvbpp"]
 
 [ext_resource type="Shader" uid="uid://b1gxl6otkvibm" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="1_hvagc"]
 [ext_resource type="Script" uid="uid://caevakm87nk02" path="res://main_world_scenes/pixel_test.gd" id="1_oxday"]
+[ext_resource type="Shader" uid="uid://c31te2umjbjxa" path="res://addons/pixelart_stylizer.gdshader" id="2_6113o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6l2jf"]
+render_priority = 0
+shader = ExtResource("2_6113o")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.4
+shader_parameter/highlight_strength = 0.1
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bftcs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oxday"]
+sky_horizon_color = Color(0.882353, 0.670588, 0.258824, 1)
+
+[sub_resource type="Sky" id="Sky_6113o"]
+sky_material = SubResource("ProceduralSkyMaterial_oxday")
 
 [sub_resource type="Environment" id="Environment_jvttq"]
-background_mode = 3
+background_mode = 2
 background_color = Color(0.775063, 0.775063, 0.775063, 1)
+sky = SubResource("Sky_6113o")
 ambient_light_source = 3
-ambient_light_color = Color(0.333017, 0.537533, 1, 1)
 
 [sub_resource type="Gradient" id="Gradient_6113o"]
-offsets = PackedFloat32Array(0, 0.53125, 1)
-colors = PackedColorArray(0, 0, 1, 1, 0.560784, 1, 0.560784, 1, 1, 1, 0, 1)
+offsets = PackedFloat32Array(0, 0.34375, 0.6875, 1)
+colors = PackedColorArray(0, 0, 1, 1, 0.560784, 1, 0.560784, 1, 1, 1, 0, 1, 0.970053, 0.437152, 0.951501, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xnx2h"]
 gradient = SubResource("Gradient_6113o")
@@ -19,9 +38,9 @@ gradient = SubResource("Gradient_6113o")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xnx2h"]
 render_priority = 0
 shader = ExtResource("1_hvagc")
-shader_parameter/albedo = Color(1, 0, 1, 1)
+shader_parameter/albedo = Color(1, 0.501961, 1, 1)
 shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 3
+shader_parameter/cuts = 4
 shader_parameter/wrap = 0.0
 shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
@@ -31,7 +50,7 @@ shader_parameter/specular_shininess = 16.0
 shader_parameter/use_rim = true
 shader_parameter/rim_width = 8.0
 shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = true
+shader_parameter/use_ramp = false
 shader_parameter/ramp = SubResource("GradientTexture1D_xnx2h")
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.01
@@ -40,8 +59,10 @@ shader_parameter/border_width = 0.01
 material = SubResource("ShaderMaterial_xnx2h")
 
 [sub_resource type="Gradient" id="Gradient_oxday"]
-offsets = PackedFloat32Array(0, 0.546875, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.501961, 1, 0.501961, 1, 0, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.666667, 1)
+colors = PackedColorArray(1.42948e-05, 0.90095, 0.171851, 1, 0.567105, 0.997511, 1, 1, 0, 0.851473, 0.851473, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 3
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6113o"]
 gradient = SubResource("Gradient_oxday")
@@ -49,7 +70,7 @@ gradient = SubResource("Gradient_oxday")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6113o"]
 render_priority = 0
 shader = ExtResource("1_hvagc")
-shader_parameter/albedo = Color(0.810994, 1, 0.995986, 1)
+shader_parameter/albedo = Color(0.262745, 1, 1, 1)
 shader_parameter/clamp_diffuse_to_max = false
 shader_parameter/cuts = 3
 shader_parameter/wrap = 0.0
@@ -61,7 +82,7 @@ shader_parameter/specular_shininess = 16.0
 shader_parameter/use_rim = true
 shader_parameter/rim_width = 8.0
 shader_parameter/rim_color = Color(1, 1, 1, 1)
-shader_parameter/use_ramp = true
+shader_parameter/use_ramp = false
 shader_parameter/ramp = SubResource("GradientTexture1D_6113o")
 shader_parameter/use_borders = false
 shader_parameter/border_width = 0.01
@@ -70,8 +91,8 @@ shader_parameter/border_width = 0.01
 material = SubResource("ShaderMaterial_6113o")
 
 [sub_resource type="Gradient" id="Gradient_xnx2h"]
-offsets = PackedFloat32Array(0, 0.546875)
-colors = PackedColorArray(0, 0.423529, 0, 1, 0, 1, 0, 1)
+offsets = PackedFloat32Array(0, 0.296875)
+colors = PackedColorArray(0, 0.423529, 0, 1, 0.607843, 1, 0.309804, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6l2jf"]
 gradient = SubResource("Gradient_xnx2h")
@@ -79,7 +100,7 @@ gradient = SubResource("Gradient_xnx2h")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oxday"]
 render_priority = 0
 shader = ExtResource("1_hvagc")
-shader_parameter/albedo = Color(0.62863, 0.973641, 0.693441, 1)
+shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/clamp_diffuse_to_max = false
 shader_parameter/cuts = 2
 shader_parameter/wrap = -0.609
@@ -113,7 +134,9 @@ stretch = true
 stretch_shrink = 3
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
 size = Vector2i(384, 216)
+render_target_update_mode = 4
 
 [node name="CameraRig" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
@@ -122,7 +145,18 @@ transform = Transform3D(-0.174031, -0.425809, 0.887919, -0.00707984, 0.902196, 0
 projection = 1
 size = 1.03825
 
+[node name="PixelPostProcessor" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/CameraRig/Camera3D"]
+transform = Transform3D(1, 0, 0, 7.45058e-09, 5.21541e-08, -1, 8.9407e-08, 1, -2.32831e-08, 0.032487, 0.0868168, -1.22121)
+material_override = SubResource("ShaderMaterial_6l2jf")
+mesh = SubResource("PlaneMesh_bftcs")
+
 [node name="World" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewportContainer/SubViewport/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00323486, 0.78241, 0.0763245)
+light_color = Color(1, 0, 0, 1)
+light_energy = 1.25
+omni_range = 1.216
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/World"]
 transform = Transform3D(-0.998949, 3.37793e-10, -0.0458336, -0.0362132, -0.612976, 0.789271, -0.0280949, 0.790102, 0.612332, 0, 4.9053, 3.34349)
@@ -136,12 +170,12 @@ directional_shadow_split_1 = 0.05
 environment = SubResource("Environment_jvttq")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World"]
-transform = Transform3D(0.417534, 0, 0, 0, 0.30699, 0, 0, 0, 0.5, -0.38858, 0.141931, -0.15271)
+transform = Transform3D(0.417534, 0, 0, 0, 0.30699, 0, 0, 0, 0.5, -0.567993, 0.141931, -0.15271)
 mesh = SubResource("BoxMesh_6l2jf")
 skeleton = NodePath("../MeshInstance3D2")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World"]
-transform = Transform3D(0.417534, 0, 0, 0, 0.30699, 0, 0, 0, 0.5, 0.368896, 0.20994, 0)
+transform = Transform3D(0.417534, 0, 0, 0, 0.30699, 0, 0, 0, 0.5, 0.65744, 0.20994, 0)
 mesh = SubResource("CylinderMesh_oxday")
 skeleton = NodePath("")
 
