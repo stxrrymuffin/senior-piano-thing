@@ -1,5 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6kewh2slebxj"]
+[gd_scene load_steps=3 format=3 uid="uid://b6kewh2slebxj"]
 
 [ext_resource type="PackedScene" uid="uid://sjefhbb2o0ub" path="res://main_world_assets/grass.glb" id="1_w5rrt"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5rrt"]
+albedo_color = Color(8.71167e-06, 0.889922, 0.216706, 1)
+
 [node name="grass" instance=ExtResource("1_w5rrt")]
+
+[node name="Plane_008" parent="." index="0"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_w5rrt")
