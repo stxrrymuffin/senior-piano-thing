@@ -5,7 +5,7 @@ extends CharacterBody3D
 # The downward acceleration when in the air, in meters per second squared.
 @export var fall_acceleration = 9
 
-@export var jump_impulse = 5
+@export var jump_impulse = 6
 
 var target_velocity = Vector3.ZERO
 
