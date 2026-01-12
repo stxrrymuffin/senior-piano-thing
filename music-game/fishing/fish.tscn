@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://mrtvfqjbqop8"]
+
+[ext_resource type="Texture2D" uid="uid://eybdx5vfah1i" path="res://icon.svg" id="1_t635e"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_goa5m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_t635e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="fish" type="AnimatedSprite2D"]
+scale = Vector2(0.588277, 0.588277)
+sprite_frames = SubResource("SpriteFrames_goa5m")

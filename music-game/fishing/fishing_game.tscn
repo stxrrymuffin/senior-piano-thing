@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://lwqglk85f345"]
+
+[ext_resource type="Texture2D" uid="uid://dceee6g7b8bu" path="res://fishing_assets/waterbg.jpg" id="1_6o7ob"]
+[ext_resource type="Texture2D" uid="uid://c6cxo4uqg106w" path="res://fishing_assets/bridge.png" id="2_5d68q"]
+[ext_resource type="Texture2D" uid="uid://que83bg11qcy" path="res://fishing_assets/fishing_rod.png" id="3_swhq7"]
+[ext_resource type="Texture2D" uid="uid://b813xttahlaf3" path="res://fishing_assets/cat_run-Sheet.png" id="4_dq30w"]
+[ext_resource type="Texture2D" uid="uid://bsw2t0vvtj7y7" path="res://fishing_assets/cat_idle.png" id="5_3wecw"]
+[ext_resource type="PackedScene" uid="uid://mrtvfqjbqop8" path="res://fishing/fish.tscn" id="6_5d68q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fioaj"]
+atlas = ExtResource("4_dq30w")
+region = Rect2(0, 0, 28, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxekq"]
+atlas = ExtResource("5_3wecw")
+region = Rect2(0, 0, 28, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fm6yn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fioaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxekq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="fishing_game" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -8.0
+offset_top = -75.0
+offset_right = 1792.0
+offset_bottom = 1125.0
+scale = Vector2(0.653993, 0.653993)
+texture = ExtResource("1_6o7ob")
+
+[node name="bridge" type="Sprite2D" parent="."]
+position = Vector2(163, 507)
+scale = Vector2(2.79589, 2.79589)
+texture = ExtResource("2_5d68q")
+region_enabled = true
+region_rect = Rect2(-2.98517, 25.4411, 131.046, 92.8774)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(399, 342)
+scale = Vector2(0.480543, 0.480543)
+texture = ExtResource("3_swhq7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(240, 391)
+scale = Vector2(8.73066, 8.73066)
+sprite_frames = SubResource("SpriteFrames_fm6yn")
+
+[node name="fish" parent="." instance=ExtResource("6_5d68q")]
+position = Vector2(680, 607)
