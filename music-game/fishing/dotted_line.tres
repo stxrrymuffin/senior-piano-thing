@@ -1,0 +1,13 @@
+[gd_resource type="Shader" format=3 uid="uid://dmua4hdncyija"]
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+void fragment() {
+    vec2 moving_uv = vec2(UV.x-(TIME), UV.y);
+    vec4 in_tex = texture(TEXTURE, moving_uv);
+    COLOR=in_tex;
+}
+
+"

@@ -178,6 +178,7 @@ albedo_color = Color(0.105264, 0.683356, 0.0173665, 1)
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_1qbyl"]
 name = "grass"
 scene_file = ExtResource("6_0pbta")
+density = 0.407285
 material_override = SubResource("StandardMaterial3D_0pbta")
 generated_size = Vector2(0.1, 0.1)
 last_lod = 0
