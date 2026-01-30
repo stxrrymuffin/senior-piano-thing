@@ -1,18 +1,43 @@
-[gd_scene load_steps=3 format=3 uid="uid://mrtvfqjbqop8"]
+[gd_scene load_steps=7 format=3 uid="uid://mrtvfqjbqop8"]
 
 [ext_resource type="Texture2D" uid="uid://b0g0tto8ngs20" path="res://fishing_assets/fish.png" id="1_t635e"]
+[ext_resource type="Texture2D" uid="uid://eybdx5vfah1i" path="res://icon.svg" id="2_4rt7c"]
+[ext_resource type="Script" uid="uid://dcs2ey6i454r2" path="res://fishing/fish.gd" id="3_1hlks"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_goa5m"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4rt7c"]
+size = Vector2(120.126, 109.205)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hlks"]
+atlas = ExtResource("1_t635e")
+region = Rect2(0, 0, 499, 499)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oirvb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_t635e")
+"texture": SubResource("AtlasTexture_1hlks")
 }],
 "loop": true,
-"name": &"default",
+"name": &"fish1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4rt7c")
+}],
+"loop": true,
+"name": &"fish2",
 "speed": 5.0
 }]
 
-[node name="fish" type="AnimatedSprite2D"]
+[node name="fish" type="Area2D"]
 scale = Vector2(0.366283, 0.366283)
-sprite_frames = SubResource("SpriteFrames_goa5m")
+script = ExtResource("3_1hlks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.73013, 2.73013)
+shape = SubResource("RectangleShape2D_4rt7c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oirvb")
+animation = &"fish2"

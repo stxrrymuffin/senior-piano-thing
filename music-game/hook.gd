@@ -4,6 +4,8 @@ var velocity = Vector2(0, 0)
 var on_ground = false
 var max_distance = 500
 
+signal spook
+
 func _process(delta):
 	if position.y <= max_distance:
 		velocity.y += gravity * delta
@@ -16,12 +18,20 @@ func _process(delta):
 	
 func _bob(cur_pos) -> void:
 	var tween1 = create_tween()
-	tween1.tween_property(self, "position", Vector2(position.x,cur_pos-20), 0.3).set_trans(Tween.TRANS_SINE)
-	tween1.tween_property(self, "position", Vector2(position.x,cur_pos+10), 0.5).set_trans(Tween.TRANS_SINE)
-	tween1.tween_property(self, "position", Vector2(position.x,cur_pos-10), 1).set_trans(Tween.TRANS_SINE)
-	tween1.tween_property(self, "position", Vector2(position.x, cur_pos), 1).set_trans(Tween.TRANS_SINE)
-	await get_tree().create_timer(1.5).timeout
+	tween1.tween_property(self, "position", Vector2(position.x,cur_pos+10), 0.3).set_trans(Tween.TRANS_SINE)
+	tween1.tween_property(self, "position", Vector2(position.x,cur_pos-10), 0.5).set_trans(Tween.TRANS_SINE)
+	tween1.tween_property(self, "position", Vector2(position.x,cur_pos+6), 0.5).set_trans(Tween.TRANS_SINE)
+	tween1.tween_property(self, "position", Vector2(position.x, cur_pos), 0.5).set_trans(Tween.TRANS_SINE)
+	await get_tree().create_timer(1.8).timeout
 	var tween2 = create_tween()
 	tween2.set_loops()
 	tween2.tween_property(self, "position", Vector2(position.x,cur_pos+10), 3).set_trans(Tween.TRANS_SINE)
 	tween2.tween_property(self, "position", Vector2(position.x, cur_pos-10), 3).set_trans(Tween.TRANS_SINE)
+
+
+
+func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	if on_ground:
+		print(area)
+	else:
+		area.distressed()

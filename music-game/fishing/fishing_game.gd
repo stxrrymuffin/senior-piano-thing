@@ -1,6 +1,7 @@
 extends Node2D
 @onready var line = $Line2D
 @onready var hook_scene = preload("res://hook.tscn")
+@onready var fish_scene = preload("res://fishing/fish.tscn")
 
 var max_points = 250
 var velocity = 700
@@ -11,6 +12,9 @@ var CAN_ROD = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	for i in range(3):
+		var new_fish = fish_scene.instantiate()
+		add_child(new_fish)
 	pass # Replace with function body.
 
 func update_trajectory(delta):
@@ -51,6 +55,7 @@ func draw_curved_line(start_point: Vector2, end_point: Vector2):
 func toss_rod():
 	line.hide()
 	var hook = hook_scene.instantiate()
+	hook.z_index = -2
 	add_child(hook)
 	hook.transform = $rod/Marker2D.global_transform
 	hook.velocity = hook.transform.x * velocity
