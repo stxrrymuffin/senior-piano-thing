@@ -40,4 +40,4 @@ shape = SubResource("RectangleShape2D_4rt7c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oirvb")
-animation = &"fish2"
+animation = &"fish1"
