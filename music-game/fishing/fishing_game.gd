@@ -12,6 +12,7 @@ var CAN_ROD = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Button.visible = false
 	for i in range(3):
 		var new_fish = fish_scene.instantiate()
 		add_child(new_fish)
@@ -61,3 +62,11 @@ func toss_rod():
 	hook.velocity = hook.transform.x * velocity
 	hook.gravity = gravity
 	hook.max_distance = max_distance
+	$Button.visible = true
+
+func _on_button_pressed():
+	CAN_ROD = true
+	$Line2D.visible = true
+	$Line2D2.clear_points()
+	get_node("hook").queue_free()
+	$Button.visible = false

@@ -2,9 +2,8 @@ extends Area2D
 
 var velocity = Vector2(0, 0)
 var on_ground = false
+var new_on_ground = false
 var max_distance = 500
-
-signal spook
 
 func _process(delta):
 	if position.y <= max_distance:
@@ -17,12 +16,14 @@ func _process(delta):
 		on_ground = true
 	
 func _bob(cur_pos) -> void:
+	new_on_ground = true
 	var tween1 = create_tween()
 	tween1.tween_property(self, "position", Vector2(position.x,cur_pos+10), 0.3).set_trans(Tween.TRANS_SINE)
 	tween1.tween_property(self, "position", Vector2(position.x,cur_pos-10), 0.5).set_trans(Tween.TRANS_SINE)
 	tween1.tween_property(self, "position", Vector2(position.x,cur_pos+6), 0.5).set_trans(Tween.TRANS_SINE)
 	tween1.tween_property(self, "position", Vector2(position.x, cur_pos), 0.5).set_trans(Tween.TRANS_SINE)
 	await get_tree().create_timer(1.8).timeout
+	new_on_ground = false
 	var tween2 = create_tween()
 	tween2.set_loops()
 	tween2.tween_property(self, "position", Vector2(position.x,cur_pos+10), 3).set_trans(Tween.TRANS_SINE)
@@ -31,7 +32,8 @@ func _bob(cur_pos) -> void:
 
 
 func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	if on_ground:
+	if on_ground and not new_on_ground:
 		print(area)
+		print(area.DISTRESSED)
 	else:
 		area.distressed()

@@ -6,6 +6,8 @@ var MIN_X = 300
 var MAX_X = 1100
 var velocity = 0.5
 
+var DISTRESSED = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	z_index=-5
@@ -21,10 +23,12 @@ func _ready():
 	velocity = randf_range(0.1,1)
 
 func distressed():
+	DISTRESSED = true
 	var old_velocity = velocity
 	velocity = 2
 	await get_tree().create_timer(3).timeout
 	velocity = old_velocity
+	DISTRESSED = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
