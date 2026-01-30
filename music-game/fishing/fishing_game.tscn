@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://lwqglk85f345"]
+[gd_scene load_steps=15 format=3 uid="uid://lwqglk85f345"]
 
 [ext_resource type="Texture2D" uid="uid://dceee6g7b8bu" path="res://fishing_assets/waterbg.jpg" id="1_6o7ob"]
 [ext_resource type="Script" uid="uid://bbr176ijs5j1r" path="res://fishing/fishing_game.gd" id="1_swhq7"]
@@ -12,6 +12,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fm6yn"]
 shader = ExtResource("5_fioaj")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3wecw"]
+specular_color = Color(0, 0.027451, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fioaj"]
 atlas = ExtResource("4_dq30w")
@@ -40,30 +43,14 @@ script = ExtResource("1_swhq7")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -8.0
-offset_top = -75.0
+offset_top = -128.0
 offset_right = 1792.0
-offset_bottom = 1125.0
+offset_bottom = 1072.0
 scale = Vector2(0.653993, 0.653993)
 texture = ExtResource("1_6o7ob")
 
-[node name="bridge" type="Sprite2D" parent="."]
-position = Vector2(163, 431)
-scale = Vector2(2.79589, 2.79589)
-texture = ExtResource("2_5d68q")
-region_enabled = true
-region_rect = Rect2(-2.98517, 25.4411, 131.046, 92.8774)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(225, 341)
-rotation = -0.743603
-scale = Vector2(0.30899, 0.30899)
-texture = ExtResource("3_swhq7")
-centered = false
-offset = Vector2(0, -250)
-region_rect = Rect2(28, 20.5, 536, 330)
-
-[node name="Marker2D" type="Marker2D" parent="Sprite2D"]
-position = Vector2(373.448, -52.2646)
+[node name="fish" parent="." instance=ExtResource("6_5d68q")]
+position = Vector2(431, 588)
 
 [node name="Line2D" type="Line2D" parent="."]
 texture_repeat = 2
@@ -72,10 +59,40 @@ position = Vector2(-4.57764e-05, -6.10352e-05)
 texture = ExtResource("6_3wecw")
 texture_mode = 1
 
+[node name="Line2D2" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(0.366595, 0.366595, 0.366595, 1)
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color(0, 0, 1, 0.211765)
+offset_left = -6.0
+offset_top = 341.0
+offset_right = 34.0
+offset_bottom = 381.0
+scale = Vector2(29.7478, 8.43726)
+texture = SubResource("CanvasTexture_3wecw")
+
+[node name="bridge" type="Sprite2D" parent="."]
+position = Vector2(163, 378)
+scale = Vector2(2.79589, 2.79589)
+texture = ExtResource("2_5d68q")
+region_enabled = true
+region_rect = Rect2(-2.98517, 25.4411, 131.046, 92.8774)
+
+[node name="rod" type="Sprite2D" parent="."]
+position = Vector2(225, 288)
+rotation = -0.743603
+scale = Vector2(0.30899, 0.30899)
+texture = ExtResource("3_swhq7")
+centered = false
+offset = Vector2(0, -250)
+region_enabled = true
+region_rect = Rect2(28, 20.5, 536, 330)
+
+[node name="Marker2D" type="Marker2D" parent="rod"]
+position = Vector2(525.189, -202.909)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(236, 339)
+position = Vector2(236, 286)
 scale = Vector2(5.52533, 5.52533)
 sprite_frames = SubResource("SpriteFrames_fm6yn")
-
-[node name="fish" parent="." instance=ExtResource("6_5d68q")]
-position = Vector2(680, 607)
