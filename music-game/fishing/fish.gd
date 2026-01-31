@@ -18,7 +18,7 @@ func _ready():
 	assign_rand_range()
 	position.x = randf_range(MIN_X, MAX_X)
 	position.y = randf_range(MIN_Y, MAX_Y)
-	velocity_fish = randf_range(0.1,1)
+	velocity_fish = randf_range(0.2,1)
 	fish_type = randi_range(0,1)
 	if fish_type == 0:
 		$AnimatedSprite2D.play("fish1")

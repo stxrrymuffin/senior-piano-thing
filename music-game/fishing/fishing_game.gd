@@ -37,7 +37,7 @@ func update_trajectory(delta):
 func _process(delta):
 	var mouse_position: Vector2 = get_global_mouse_position()
 	if CAN_ROD or not PICKED_DEPTH:
-		$rod.look_at(Vector2(max(350,mouse_position.x), min(350,max(100,mouse_position.y))))
+		$rod.look_at(Vector2(max(350,mouse_position.x), min(500,max(300,mouse_position.y))))
 	if CAN_ROD:
 		line.show()
 		update_trajectory(delta)

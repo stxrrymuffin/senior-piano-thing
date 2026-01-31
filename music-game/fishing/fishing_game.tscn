@@ -1,14 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://lwqglk85f345"]
+[gd_scene load_steps=20 format=3 uid="uid://lwqglk85f345"]
 
 [ext_resource type="Texture2D" uid="uid://dceee6g7b8bu" path="res://fishing_assets/waterbg.jpg" id="1_6o7ob"]
 [ext_resource type="Script" uid="uid://bbr176ijs5j1r" path="res://fishing/fishing_game.gd" id="1_swhq7"]
 [ext_resource type="Texture2D" uid="uid://c6cxo4uqg106w" path="res://fishing_assets/bridge.png" id="2_5d68q"]
-[ext_resource type="Texture2D" uid="uid://que83bg11qcy" path="res://fishing_assets/fishing_rod.png" id="3_swhq7"]
 [ext_resource type="Texture2D" uid="uid://b813xttahlaf3" path="res://fishing_assets/cat_run-Sheet.png" id="4_dq30w"]
 [ext_resource type="Texture2D" uid="uid://bsw2t0vvtj7y7" path="res://fishing_assets/cat_idle.png" id="5_3wecw"]
 [ext_resource type="Shader" uid="uid://dmua4hdncyija" path="res://fishing/dotted_line.tres" id="5_fioaj"]
 [ext_resource type="Texture2D" uid="uid://tffm53c8v2lh" path="res://fishing_assets/dottedline_lowered.png" id="6_3wecw"]
 [ext_resource type="PackedScene" uid="uid://mrtvfqjbqop8" path="res://fishing/fish.tscn" id="6_5d68q"]
+[ext_resource type="Texture2D" uid="uid://00l3pxhkgp4b" path="res://fishing_assets/cat_fish.png" id="7_fm6yn"]
+[ext_resource type="Texture2D" uid="uid://svouib2axv5f" path="res://fishing_assets/fishing_rod2.png" id="8_x0cq1"]
+[ext_resource type="Texture2D" uid="uid://d388e34p6o5lv" path="res://fishing_assets/cat_fish2.png" id="9_xema0"]
 [ext_resource type="PackedScene" uid="uid://d0w1rd0tbltaj" path="res://fishing/power.tscn" id="10_fioaj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fm6yn"]
@@ -16,6 +18,28 @@ shader = ExtResource("5_fioaj")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_3wecw"]
 specular_color = Color(0, 0.027451, 1, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a3f2t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_fm6yn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fxi5r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_xema0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fioaj"]
 atlas = ExtResource("4_dq30w")
@@ -83,20 +107,35 @@ texture = ExtResource("2_5d68q")
 region_enabled = true
 region_rect = Rect2(-2.98517, 25.4411, 131.046, 92.8774)
 
+[node name="Cat" type="Node2D" parent="."]
+position = Vector2(236, 286)
+
+[node name="body" type="AnimatedSprite2D" parent="Cat"]
+position = Vector2(-7, -20)
+scale = Vector2(2.99, 2.99)
+sprite_frames = SubResource("SpriteFrames_a3f2t")
+
 [node name="rod" type="Sprite2D" parent="."]
-position = Vector2(225, 288)
-rotation = -0.743603
-scale = Vector2(0.30899, 0.30899)
-texture = ExtResource("3_swhq7")
+position = Vector2(240, 287)
+rotation = 0.477293
+scale = Vector2(2.99, 2.99)
+texture = ExtResource("8_x0cq1")
 centered = false
-offset = Vector2(0, -250)
-region_enabled = true
+offset = Vector2(-6, -40)
 region_rect = Rect2(28, 20.5, 536, 330)
 
 [node name="Marker2D" type="Marker2D" parent="rod"]
-position = Vector2(525.189, -202.909)
+position = Vector2(12.0688, -36.3639)
+rotation = -1.2209
+scale = Vector2(0.103341, 0.103341)
+
+[node name="arm" type="AnimatedSprite2D" parent="."]
+position = Vector2(226, 266)
+scale = Vector2(2.99473, 2.99473)
+sprite_frames = SubResource("SpriteFrames_fxi5r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(236, 286)
 scale = Vector2(5.52533, 5.52533)
 sprite_frames = SubResource("SpriteFrames_fm6yn")
