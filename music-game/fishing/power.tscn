@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0w1rd0tbltaj"]
+
+[ext_resource type="Texture2D" uid="uid://bg41rayrc8qw8" path="res://fishing_assets/power_bar.png" id="1_fkoog"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jayql"]
+atlas = ExtResource("1_fkoog")
+region = Rect2(135, 0, 8, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8j6i"]
+atlas = ExtResource("1_fkoog")
+region = Rect2(119, 0, 8, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idoil"]
+atlas = ExtResource("1_fkoog")
+region = Rect2(103, 0, 8, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxrdo"]
+atlas = ExtResource("1_fkoog")
+region = Rect2(87, 0, 8, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu137"]
+atlas = ExtResource("1_fkoog")
+region = Rect2(71, 0, 8, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knmt0"]
+atlas = ExtResource("1_fkoog")
+region = Rect2(55, 0, 8, 44)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ipr31"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jayql")
+}],
+"loop": true,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8j6i")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idoil")
+}],
+"loop": true,
+"name": &"2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxrdo")
+}],
+"loop": true,
+"name": &"3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu137")
+}],
+"loop": true,
+"name": &"4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knmt0")
+}],
+"loop": true,
+"name": &"5",
+"speed": 5.0
+}]
+
+[node name="PowerBar" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fkoog")
+region_enabled = true
+region_rect = Rect2(6, 6, 11, 32)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ipr31")
+animation = &"2"
+offset = Vector2(-0.5, 0)

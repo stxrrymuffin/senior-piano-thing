@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://lwqglk85f345"]
+[gd_scene load_steps=16 format=3 uid="uid://lwqglk85f345"]
 
 [ext_resource type="Texture2D" uid="uid://dceee6g7b8bu" path="res://fishing_assets/waterbg.jpg" id="1_6o7ob"]
 [ext_resource type="Script" uid="uid://bbr176ijs5j1r" path="res://fishing/fishing_game.gd" id="1_swhq7"]
@@ -9,6 +9,7 @@
 [ext_resource type="Shader" uid="uid://dmua4hdncyija" path="res://fishing/dotted_line.tres" id="5_fioaj"]
 [ext_resource type="Texture2D" uid="uid://tffm53c8v2lh" path="res://fishing_assets/dottedline_lowered.png" id="6_3wecw"]
 [ext_resource type="PackedScene" uid="uid://mrtvfqjbqop8" path="res://fishing/fish.tscn" id="6_5d68q"]
+[ext_resource type="PackedScene" uid="uid://d0w1rd0tbltaj" path="res://fishing/power.tscn" id="10_fioaj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fm6yn"]
 shader = ExtResource("5_fioaj")
@@ -99,6 +100,10 @@ position = Vector2(525.189, -202.909)
 position = Vector2(236, 286)
 scale = Vector2(5.52533, 5.52533)
 sprite_frames = SubResource("SpriteFrames_fm6yn")
+
+[node name="PowerBar" parent="." instance=ExtResource("10_fioaj")]
+position = Vector2(1107, 206)
+scale = Vector2(3.95034, 3.95034)
 
 [node name="Button" type="Button" parent="."]
 offset_left = 923.0

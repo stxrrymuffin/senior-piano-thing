@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://heqrivkkfxp4"]
 
 [ext_resource type="Texture2D" uid="uid://eybdx5vfah1i" path="res://icon.svg" id="1_1mm2r"]
-[ext_resource type="Script" uid="uid://cg7ma4yr5jlee" path="res://hook.gd" id="1_n13h4"]
+[ext_resource type="Script" uid="uid://cg7ma4yr5jlee" path="res://fishing/hook.gd" id="1_n13h4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n13h4"]
 

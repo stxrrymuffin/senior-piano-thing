@@ -1,6 +1,6 @@
 extends Node2D
 @onready var line = $Line2D
-@onready var hook_scene = preload("res://hook.tscn")
+@onready var hook_scene = preload("res://fishing/hook.tscn")
 @onready var fish_scene = preload("res://fishing/fish.tscn")
 
 var max_points = 250
@@ -8,10 +8,13 @@ var velocity = 700
 var gravity = 250
 var max_distance = 500
 
-var CAN_ROD = true
+var CAN_ROD = false
+var PICKED_POWER = false
+var POWER = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	show_power()
 	$Button.visible = false
 	for i in range(3):
 		var new_fish = fish_scene.instantiate()
@@ -31,16 +34,34 @@ func update_trajectory(delta):
 			
 func _process(delta):
 	var mouse_position: Vector2 = get_global_mouse_position()
-	if CAN_ROD:
+	if CAN_ROD or not PICKED_POWER:
 		$rod.look_at(Vector2(max(350,mouse_position.x), min(350,max(100,mouse_position.y))))
+	if CAN_ROD:
 		line.show()
 		update_trajectory(delta)
-	else:
-		#print($rod/Marker2D.global_position, Vector2(get_node("rod").global_position.x,get_node("hook").global_position.y-0.5*get_node("hook").get_child("Sprite2D").get_height()))
+	elif PICKED_POWER:
 		var cur_curve = draw_curved_line($rod/Marker2D.global_position, Vector2(get_node("hook").global_position.x,get_node("hook").global_position.y-5))
-	if CAN_ROD and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if not PICKED_POWER and Input.is_action_just_pressed("left_click"):
+		PICKED_POWER = true
+		CAN_ROD = true
+		velocity = 900 / (3 - sqrt(POWER))
+	elif CAN_ROD and Input.is_action_just_pressed("left_click"):
 		CAN_ROD = false
 		toss_rod()
+
+func show_power():
+	$PowerBar/AnimatedSprite2D.play("0")
+	var increment = 1
+	POWER = 0
+	while PICKED_POWER == false:
+		if POWER >= 5:
+			increment = -1
+		if POWER <= 0:
+			increment = 1
+		POWER += increment
+		$PowerBar/AnimatedSprite2D.play(str(POWER))
+		await get_tree().create_timer(0.25).timeout
+	return
 		
 func draw_curved_line(start_point: Vector2, end_point: Vector2):
 	var curve := Curve2D.new()
@@ -49,7 +70,6 @@ func draw_curved_line(start_point: Vector2, end_point: Vector2):
 	var start_out_tangent = (mid_point + control_offset) - start_point
 	curve.add_point(start_point, Vector2.ZERO, start_out_tangent)
 	curve.add_point(end_point)
-	#curve.add_point(end_point, end_in_tangent, Vector2.ZERO)
 	$Line2D2.points = curve.get_baked_points()
 	return curve
 		
@@ -65,7 +85,10 @@ func toss_rod():
 	$Button.visible = true
 
 func _on_button_pressed():
-	CAN_ROD = true
+	CAN_ROD = false
+	PICKED_POWER = false
+	show_power()
+	$Line2D.clear_points()
 	$Line2D.visible = true
 	$Line2D2.clear_points()
 	get_node("hook").queue_free()
