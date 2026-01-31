@@ -102,7 +102,12 @@ scale = Vector2(5.52533, 5.52533)
 sprite_frames = SubResource("SpriteFrames_fm6yn")
 
 [node name="PowerBar" parent="." instance=ExtResource("10_fioaj")]
-position = Vector2(1107, 206)
+position = Vector2(1021, 132)
+rotation = 1.5708
+scale = Vector2(3.95034, 3.95034)
+
+[node name="DepthBar" parent="." instance=ExtResource("10_fioaj")]
+position = Vector2(1117, 172)
 scale = Vector2(3.95034, 3.95034)
 
 [node name="Button" type="Button" parent="."]

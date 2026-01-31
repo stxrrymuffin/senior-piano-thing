@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://mrtvfqjbqop8"]
+[gd_scene load_steps=8 format=3 uid="uid://mrtvfqjbqop8"]
 
 [ext_resource type="Texture2D" uid="uid://b0g0tto8ngs20" path="res://fishing_assets/fish.png" id="1_t635e"]
 [ext_resource type="Texture2D" uid="uid://eybdx5vfah1i" path="res://icon.svg" id="2_4rt7c"]
 [ext_resource type="Script" uid="uid://dcs2ey6i454r2" path="res://fishing/fish.gd" id="3_1hlks"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hlks"]
+size = Vector2(236.601, 206.569)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4rt7c"]
 size = Vector2(120.126, 109.205)
@@ -30,9 +33,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="fish" type="Area2D"]
+[node name="fish" type="CharacterBody2D"]
 scale = Vector2(0.366283, 0.366283)
 script = ExtResource("3_1hlks")
+
+[node name="front_detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="front_detection"]
+position = Vector2(333.076, 0)
+shape = SubResource("RectangleShape2D_1hlks")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.73013, 2.73013)

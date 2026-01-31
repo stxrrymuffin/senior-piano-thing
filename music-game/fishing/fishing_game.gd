@@ -10,7 +10,9 @@ var max_distance = 500
 
 var CAN_ROD = false
 var PICKED_POWER = false
+var PICKED_DEPTH = false
 var POWER = 0
+var DEPTH = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,17 +36,21 @@ func update_trajectory(delta):
 			
 func _process(delta):
 	var mouse_position: Vector2 = get_global_mouse_position()
-	if CAN_ROD or not PICKED_POWER:
+	if CAN_ROD or not PICKED_DEPTH:
 		$rod.look_at(Vector2(max(350,mouse_position.x), min(350,max(100,mouse_position.y))))
 	if CAN_ROD:
 		line.show()
 		update_trajectory(delta)
-	elif PICKED_POWER:
+	elif PICKED_DEPTH:
 		var cur_curve = draw_curved_line($rod/Marker2D.global_position, Vector2(get_node("hook").global_position.x,get_node("hook").global_position.y-5))
 	if not PICKED_POWER and Input.is_action_just_pressed("left_click"):
 		PICKED_POWER = true
-		CAN_ROD = true
 		velocity = 900 / (3 - sqrt(POWER))
+		show_depth()
+	elif not PICKED_DEPTH and Input.is_action_just_pressed("left_click"):
+		PICKED_DEPTH = true
+		CAN_ROD = true
+		max_distance = 250 + (250 / (3 - sqrt(DEPTH)))
 	elif CAN_ROD and Input.is_action_just_pressed("left_click"):
 		CAN_ROD = false
 		toss_rod()
@@ -60,6 +66,20 @@ func show_power():
 			increment = 1
 		POWER += increment
 		$PowerBar/AnimatedSprite2D.play(str(POWER))
+		await get_tree().create_timer(0.25).timeout
+	return
+
+func show_depth():
+	$DepthBar/AnimatedSprite2D.play("0")
+	var increment = 1
+	DEPTH = 0
+	while PICKED_DEPTH == false:
+		if DEPTH >= 5:
+			increment = -1
+		if DEPTH <= 0:
+			increment = 1
+		DEPTH += increment
+		$DepthBar/AnimatedSprite2D.play(str(DEPTH))
 		await get_tree().create_timer(0.25).timeout
 	return
 		
@@ -87,6 +107,9 @@ func toss_rod():
 func _on_button_pressed():
 	CAN_ROD = false
 	PICKED_POWER = false
+	PICKED_DEPTH = false
+	$DepthBar/AnimatedSprite2D.play("0")
+	DEPTH = 0
 	show_power()
 	$Line2D.clear_points()
 	$Line2D.visible = true
