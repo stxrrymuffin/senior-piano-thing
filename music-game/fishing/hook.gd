@@ -33,15 +33,25 @@ func _bob(cur_pos) -> void:
 
 func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	if on_ground and not new_on_ground:
-		print('fish interested')
+		var rand_num = randf_range(0,1)
+		print(rand_num)
+		if rand_num > 0.5:
+			area.get_parent().INTERESTED = true
+			print('fish interested')
+		else:
+			area.get_parent().distressed()
 	else:
-		area.get_parent().flip_fish()
-		area.get_parent().distressed()
-
+		if not area.get_parent().DISTRESSED:
+			area.get_parent().flip_fish()
+			area.get_parent().distressed()
 
 func _on_body_entered(body):
 	if on_ground and not new_on_ground:
 		print('fish hit')
 		print(body.DISTRESSED)
+		if body.DISTRESSED and not body.ALR_DISTRESSED:
+			body.ALR_DISTRESSED = true
+			body.distressed()
+		print(body.ALR_DISTRESSED)
 	else:
 		body.distressed()

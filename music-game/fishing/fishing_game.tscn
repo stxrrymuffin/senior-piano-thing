@@ -2,12 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://dceee6g7b8bu" path="res://fishing_assets/waterbg.jpg" id="1_6o7ob"]
 [ext_resource type="Script" uid="uid://bbr176ijs5j1r" path="res://fishing/fishing_game.gd" id="1_swhq7"]
-[ext_resource type="Texture2D" uid="uid://c6cxo4uqg106w" path="res://fishing_assets/bridge.png" id="2_5d68q"]
 [ext_resource type="Texture2D" uid="uid://b813xttahlaf3" path="res://fishing_assets/cat_run-Sheet.png" id="4_dq30w"]
 [ext_resource type="Texture2D" uid="uid://bsw2t0vvtj7y7" path="res://fishing_assets/cat_idle.png" id="5_3wecw"]
 [ext_resource type="Shader" uid="uid://dmua4hdncyija" path="res://fishing/dotted_line.tres" id="5_fioaj"]
 [ext_resource type="Texture2D" uid="uid://tffm53c8v2lh" path="res://fishing_assets/dottedline_lowered.png" id="6_3wecw"]
 [ext_resource type="PackedScene" uid="uid://mrtvfqjbqop8" path="res://fishing/fish.tscn" id="6_5d68q"]
+[ext_resource type="Texture2D" uid="uid://crs2e0yffw65u" path="res://fishing_assets/boat.png" id="6_fm6yn"]
 [ext_resource type="Texture2D" uid="uid://00l3pxhkgp4b" path="res://fishing_assets/cat_fish.png" id="7_fm6yn"]
 [ext_resource type="Texture2D" uid="uid://svouib2axv5f" path="res://fishing_assets/fishing_rod2.png" id="8_x0cq1"]
 [ext_resource type="Texture2D" uid="uid://d388e34p6o5lv" path="res://fishing_assets/cat_fish2.png" id="9_xema0"]
@@ -15,9 +15,6 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fm6yn"]
 shader = ExtResource("5_fioaj")
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_3wecw"]
-specular_color = Color(0, 0.027451, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a3f2t"]
 animations = [{
@@ -63,6 +60,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_3wecw"]
+specular_color = Color(0, 0.027451, 1, 1)
+
 [node name="fishing_game" type="Node2D"]
 script = ExtResource("1_swhq7")
 
@@ -79,6 +79,13 @@ texture = ExtResource("1_6o7ob")
 visible = false
 position = Vector2(431, 588)
 
+[node name="boat" type="Sprite2D" parent="."]
+z_index = -5
+position = Vector2(222, 258)
+scale = Vector2(2.12053, 2.12053)
+texture = ExtResource("6_fm6yn")
+region_rect = Rect2(-2.98517, 25.4411, 131.046, 92.8774)
+
 [node name="Line2D" type="Line2D" parent="."]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_fm6yn")
@@ -91,22 +98,6 @@ z_index = -3
 width = 2.0
 default_color = Color(0.366595, 0.366595, 0.366595, 1)
 
-[node name="TextureRect2" type="TextureRect" parent="."]
-modulate = Color(0, 0, 1, 0.211765)
-offset_left = -6.0
-offset_top = 341.0
-offset_right = 34.0
-offset_bottom = 381.0
-scale = Vector2(29.7478, 8.43726)
-texture = SubResource("CanvasTexture_3wecw")
-
-[node name="bridge" type="Sprite2D" parent="."]
-position = Vector2(163, 378)
-scale = Vector2(2.79589, 2.79589)
-texture = ExtResource("2_5d68q")
-region_enabled = true
-region_rect = Rect2(-2.98517, 25.4411, 131.046, 92.8774)
-
 [node name="Cat" type="Node2D" parent="."]
 position = Vector2(236, 286)
 
@@ -115,30 +106,49 @@ position = Vector2(-7, -20)
 scale = Vector2(2.99, 2.99)
 sprite_frames = SubResource("SpriteFrames_a3f2t")
 
-[node name="rod" type="Sprite2D" parent="."]
-position = Vector2(240, 287)
+[node name="arm" type="AnimatedSprite2D" parent="."]
+position = Vector2(205, 287)
+rotation = 0.0295593
+scale = Vector2(2.99473, 2.99473)
+sprite_frames = SubResource("SpriteFrames_fxi5r")
+offset = Vector2(9, -7)
+
+[node name="rod" type="Sprite2D" parent="arm"]
+show_behind_parent = true
+position = Vector2(11.4075, 1.66709)
 rotation = 0.477293
-scale = Vector2(2.99, 2.99)
+scale = Vector2(0.998421, 0.998421)
 texture = ExtResource("8_x0cq1")
 centered = false
 offset = Vector2(-6, -40)
 region_rect = Rect2(28, 20.5, 536, 330)
 
-[node name="Marker2D" type="Marker2D" parent="rod"]
+[node name="Marker2D" type="Marker2D" parent="arm/rod"]
 position = Vector2(12.0688, -36.3639)
 rotation = -1.2209
 scale = Vector2(0.103341, 0.103341)
 
-[node name="arm" type="AnimatedSprite2D" parent="."]
-position = Vector2(226, 266)
-scale = Vector2(2.99473, 2.99473)
-sprite_frames = SubResource("SpriteFrames_fxi5r")
+[node name="boat2" type="Sprite2D" parent="."]
+position = Vector2(244, 388)
+scale = Vector2(2.12053, 2.12053)
+texture = ExtResource("6_fm6yn")
+region_enabled = true
+region_rect = Rect2(135, 204, 101, 64)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(236, 286)
 scale = Vector2(5.52533, 5.52533)
 sprite_frames = SubResource("SpriteFrames_fm6yn")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color(0, 0, 1, 0.211765)
+offset_left = -6.0
+offset_top = 341.0
+offset_right = 34.0
+offset_bottom = 381.0
+scale = Vector2(29.7478, 8.43726)
+texture = SubResource("CanvasTexture_3wecw")
 
 [node name="PowerBar" parent="." instance=ExtResource("10_fioaj")]
 position = Vector2(1021, 132)

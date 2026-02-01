@@ -25,8 +25,8 @@ func _ready():
 
 func update_trajectory(delta):
 	line.clear_points()
-	var pos = $rod/Marker2D.global_position
-	var vel = $rod/Marker2D.global_transform.x * velocity
+	var pos = $arm/rod/Marker2D.global_position
+	var vel = $arm/rod/Marker2D.global_transform.x * velocity
 	for i in max_points:
 		line.add_point(pos)
 		vel.y += gravity * delta
@@ -37,12 +37,14 @@ func update_trajectory(delta):
 func _process(delta):
 	var mouse_position: Vector2 = get_global_mouse_position()
 	if CAN_ROD or not PICKED_DEPTH:
-		$rod.look_at(Vector2(max(350,mouse_position.x), min(500,max(300,mouse_position.y))))
+		#$arm.look_at(Vector2(max(350,mouse_position.x), min(500,max(300,mouse_position.y))))
+		$arm.rotation = lerp_angle(rotation, rotation + get_angle_to(Vector2(max(350,mouse_position.x),min(500,max(300,mouse_position.y)))), 0.5)
+		$arm/rod.look_at(Vector2(max(350,mouse_position.x), min(500,max(300,mouse_position.y))))
 	if CAN_ROD:
 		line.show()
 		update_trajectory(delta)
 	elif PICKED_DEPTH:
-		var cur_curve = draw_curved_line($rod/Marker2D.global_position, Vector2(get_node("hook").global_position.x,get_node("hook").global_position.y-5))
+		var cur_curve = draw_curved_line($arm/rod/Marker2D.global_position, Vector2(get_node("hook").global_position.x,get_node("hook").global_position.y-5))
 	if not PICKED_POWER and Input.is_action_just_pressed("left_click"):
 		PICKED_POWER = true
 		velocity = 900 / (3 - sqrt(POWER))
@@ -98,7 +100,7 @@ func toss_rod():
 	var hook = hook_scene.instantiate()
 	hook.z_index = -2
 	add_child(hook)
-	hook.transform = $rod/Marker2D.global_transform
+	hook.transform = $arm/rod/Marker2D.global_transform
 	hook.velocity = hook.transform.x * velocity
 	hook.gravity = gravity
 	hook.max_distance = max_distance
