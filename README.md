@@ -1,4 +1,6 @@
-# ✨*cool music notation app*✨!:D
+# ✨*frutiger stereo*✨!:D
+
+DESCRIPTION TO BE UPDATED
 
 This project allows you to write down the music of your dreams; well, mostly.
 If you are a music nerd, you are limited to treble clef & quarter/half/eighth/sixteenth notes, *BUT* you 
