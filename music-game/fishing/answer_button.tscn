@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cj5jl20075ykc"]
+
+[ext_resource type="Script" uid="uid://cdg8yb0nx2jd5" path="res://fishing/answer_button.gd" id="1_77gwc"]
+[ext_resource type="FontFile" uid="uid://bljbj8hlsg77m" path="res://assets/LowresPixel-Regular.otf" id="1_aopjt"]
+[ext_resource type="Texture2D" uid="uid://cqw5k3fuv5cdp" path="res://assets/buttony2k.png" id="2_gl5s8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4ubj"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = ExtResource("2_gl5s8")
+
+[node name="Answer_Button" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -794.0
+offset_bottom = -576.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.686953, 0.686953)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_aopjt")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_i4ubj")
+text = "Answer Text"
+script = ExtResource("1_77gwc")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

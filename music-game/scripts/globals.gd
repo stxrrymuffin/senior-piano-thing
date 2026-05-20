@@ -1,5 +1,14 @@
 extends Node
 var cur_playing = false
+
+var TOTAL_POINTS = 0
+var OLD_POINTS = 0
+
+var FISHING_MCQ_TIME = 5
+var FISHING_TIME = 60
+
+var first_time = true
+
 const note_map_keyboard = {
 	[65]:"C",
 	[83]:"D",
@@ -77,4 +86,23 @@ const pos_map = {
 	"A" : -1,
 	"B": 0,
 	"H": 1
+}
+
+
+const dct_questions = {
+	1 : {
+		"Question" : "[wave]name that note!",
+		"Answers" : ["A", "C", "B", "D"],
+		"Image" : "res://fishing_assets/A_16th.png"
+	},
+	2 : {
+		"Question" : "[wave]name that note rhythm!",
+		"Answers" : ["Eighth Note", "Quarter Note", "16th Note", "Half Note"],
+		"Image" : "res://fishing_assets/B_8th.png"
+	},
+	3 : {
+		"Question" : "[wave]name that interval!",
+		"Answers" : ["Perfect 5th", "Perfect 4th", "Minor 6th", "Major 3rd"],
+		"Image" : "res://fishing_assets/A_E.png"
+	}
 }

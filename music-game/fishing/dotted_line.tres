@@ -9,5 +9,4 @@ void fragment() {
     vec4 in_tex = texture(TEXTURE, moving_uv);
     COLOR=in_tex;
 }
-
 "

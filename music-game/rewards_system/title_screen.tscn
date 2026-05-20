@@ -1,0 +1,248 @@
+[gd_scene load_steps=24 format=3 uid="uid://dtojx3kpexpmy"]
+
+[ext_resource type="Script" uid="uid://3oon03k4p1ec" path="res://rewards_system/title_screen.gd" id="1_4aoro"]
+[ext_resource type="Texture2D" uid="uid://df4hiyaisfmde" path="res://battle_system/assets/bg.png" id="1_5fwnw"]
+[ext_resource type="Texture2D" uid="uid://bi5m35f55bhf3" path="res://battle_system/assets/cloud.png" id="2_11de5"]
+[ext_resource type="AudioStream" uid="uid://d1qjxecfghxm7" path="res://assets/002 - Main Menu.mp3" id="2_m30i3"]
+[ext_resource type="Texture2D" uid="uid://fqm52fxihmm8" path="res://battle_system/assets/circle.png" id="3_6dlip"]
+[ext_resource type="Shader" uid="uid://yshukerdnyei" path="res://battle_system/text.gdshader" id="4_aoukb"]
+[ext_resource type="Texture2D" uid="uid://cgx77r2kya08b" path="res://rewards_system/assets/cd.png" id="5_k2s0w"]
+[ext_resource type="FontFile" uid="uid://dgvo522i8c6fx" path="res://assets/pixelifySans.ttf" id="5_kp61y"]
+[ext_resource type="Shader" uid="uid://yqlabg5am4nq" path="res://battle_system/level_select.gdshader" id="6_helrq"]
+[ext_resource type="Texture2D" uid="uid://bb6bak7v37g7y" path="res://rewards_system/assets/line.png" id="6_ht0px"]
+[ext_resource type="Texture2D" uid="uid://dnepjaxrv8ecs" path="res://rewards_system/assets/star_sid.png" id="10_5ak6h"]
+[ext_resource type="Texture2D" uid="uid://b7y4c5av102oq" path="res://battle_system/assets/sparkle.png" id="11_m1wp7"]
+[ext_resource type="Texture2D" uid="uid://bvhbdh3r2i2mx" path="res://rewards_system/assets/bar.png" id="12_helrq"]
+[ext_resource type="FontFile" uid="uid://ces3khdus01eh" path="res://assets/CanvaSans-BoldItalic.otf" id="13_m30i3"]
+[ext_resource type="AudioStream" uid="uid://cyjqsc20j3c13" path="res://assets/button.wav" id="14_k2s0w"]
+[ext_resource type="AudioStream" uid="uid://cu47bdufb65h7" path="res://assets/load_game.wav" id="15_5ak6h"]
+[ext_resource type="Texture2D" uid="uid://cvjqfu83blqif" path="res://rewards_system/assets/fih.png" id="17_ljf5r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2se1y"]
+shader = ExtResource("6_helrq")
+shader_parameter/speed = 0.75
+shader_parameter/amplitude = 50.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_40mpn"]
+shader = ExtResource("6_helrq")
+shader_parameter/speed = 1.0
+shader_parameter/amplitude = 30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4aoro"]
+shader = ExtResource("4_aoukb")
+shader_parameter/speed = 1.5
+shader_parameter/amplitude = 6.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_k2s0w"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_5ak6h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2g4m"]
+shader = ExtResource("6_helrq")
+shader_parameter/speed = 1.0
+shader_parameter/amplitude = 20.0
+
+[node name="title_screen" type="Node2D"]
+script = ExtResource("1_4aoro")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_m30i3")
+autoplay = true
+
+[node name="bg" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.12223, 0.12223)
+texture = ExtResource("1_5fwnw")
+
+[node name="circle2" type="Sprite2D" parent="."]
+position = Vector2(362, 337)
+scale = Vector2(0.113348, 0.113348)
+texture = ExtResource("3_6dlip")
+metadata/_edit_use_anchors_ = true
+
+[node name="cd" type="TextureRect" parent="."]
+offset_left = 704.0
+offset_top = 17.0
+offset_right = 3322.0
+offset_bottom = 2576.0
+scale = Vector2(0.214813, 0.214813)
+texture = ExtResource("5_k2s0w")
+
+[node name="clouds" type="Node2D" parent="."]
+position = Vector2(6, 19)
+
+[node name="TextureRect" type="TextureRect" parent="clouds"]
+material = SubResource("ShaderMaterial_2se1y")
+offset_left = 548.0
+offset_top = 285.0
+offset_right = 3095.0
+offset_bottom = 1626.0
+scale = Vector2(0.13251, 0.13251)
+texture = ExtResource("2_11de5")
+
+[node name="TextureRect2" type="TextureRect" parent="clouds"]
+material = SubResource("ShaderMaterial_40mpn")
+offset_left = 841.0
+offset_top = 458.0
+offset_right = 3388.0
+offset_bottom = 1799.0
+scale = Vector2(0.110205, 0.110205)
+texture = ExtResource("2_11de5")
+
+[node name="name" type="RichTextLabel" parent="."]
+material = SubResource("ShaderMaterial_4aoro")
+offset_left = 240.0
+offset_top = 107.0
+offset_right = 775.0
+offset_bottom = 376.0
+scale = Vector2(1.10373, 1.10373)
+theme_override_constants/line_separation = -40
+theme_override_fonts/normal_font = ExtResource("5_kp61y")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "  frutiger
+stereo"
+
+[node name="line" type="TextureRect" parent="."]
+offset_left = 84.0
+offset_top = -16.0
+offset_right = 1157.0
+offset_bottom = 3705.0
+scale = Vector2(0.191206, 0.191206)
+texture = ExtResource("6_ht0px")
+
+[node name="star" type="TextureRect" parent="."]
+offset_left = 846.0
+offset_top = 265.0
+offset_right = 2731.0
+offset_bottom = 2257.0
+scale = Vector2(0.231278, 0.231278)
+texture = ExtResource("10_5ak6h")
+
+[node name="sparkle" type="TextureRect" parent="."]
+offset_left = 758.0
+offset_top = 78.0
+offset_right = 1186.0
+offset_bottom = 675.0
+scale = Vector2(0.183965, 0.183965)
+texture = ExtResource("11_m1wp7")
+
+[node name="bar" type="TextureRect" parent="."]
+visible = false
+offset_left = -16.0
+offset_top = 533.0
+offset_right = 4000.0
+offset_bottom = 979.0
+scale = Vector2(0.181244, 0.196934)
+texture = ExtResource("12_helrq")
+
+[node name="1" type="RichTextLabel" parent="."]
+offset_left = 92.0
+offset_top = 340.0
+offset_right = 627.0
+offset_bottom = 488.0
+scale = Vector2(0.69943, 0.69943)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_constants/line_separation = -40
+theme_override_fonts/normal_font = ExtResource("13_m30i3")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "1"
+
+[node name="play" type="RichTextLabel" parent="."]
+offset_left = 217.0
+offset_top = 340.0
+offset_right = 752.0
+offset_bottom = 488.0
+scale = Vector2(0.69943, 0.69943)
+theme_override_constants/line_separation = -40
+theme_override_fonts/normal_font = ExtResource("13_m30i3")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "play"
+
+[node name="2" type="RichTextLabel" parent="."]
+offset_left = 68.0
+offset_top = 430.0
+offset_right = 603.0
+offset_bottom = 578.0
+scale = Vector2(0.69943, 0.69943)
+theme_override_constants/line_separation = -40
+theme_override_fonts/normal_font = ExtResource("13_m30i3")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "2"
+
+[node name="settings" type="RichTextLabel" parent="."]
+offset_left = 193.0
+offset_top = 430.0
+offset_right = 728.0
+offset_bottom = 578.0
+scale = Vector2(0.69943, 0.69943)
+theme_override_constants/line_separation = -40
+theme_override_fonts/normal_font = ExtResource("13_m30i3")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "settings"
+
+[node name="3" type="RichTextLabel" parent="."]
+offset_left = 45.0
+offset_top = 520.0
+offset_right = 580.0
+offset_bottom = 668.0
+scale = Vector2(0.69943, 0.69943)
+theme_override_constants/line_separation = -40
+theme_override_fonts/normal_font = ExtResource("13_m30i3")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "3"
+
+[node name="credits" type="RichTextLabel" parent="."]
+offset_left = 170.0
+offset_top = 520.0
+offset_right = 705.0
+offset_bottom = 668.0
+scale = Vector2(0.69943, 0.69943)
+theme_override_constants/line_separation = -40
+theme_override_fonts/normal_font = ExtResource("13_m30i3")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "credits"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_k2s0w")
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_5ak6h")
+
+[node name="fade_out" type="TextureRect" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 0)
+z_index = 40
+offset_right = 1157.0
+offset_bottom = 662.0
+texture = SubResource("CanvasTexture_k2s0w")
+
+[node name="fade_in" type="TextureRect" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 1)
+z_index = 40
+offset_right = 1157.0
+offset_bottom = 662.0
+texture = SubResource("CanvasTexture_5ak6h")
+
+[node name="fish" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_k2g4m")
+offset_left = -40.0
+offset_top = 12.0
+offset_right = 659.0
+offset_bottom = 737.0
+scale = Vector2(0.335794, 0.335794)
+texture = ExtResource("17_ljf5r")
+
+[connection signal="focus_entered" from="play" to="." method="_on_play_focus_entered"]
+[connection signal="gui_input" from="play" to="." method="_on_play_gui_input"]
+[connection signal="mouse_entered" from="play" to="." method="_on_play_mouse_entered"]
+[connection signal="mouse_entered" from="settings" to="." method="_on_settings_mouse_entered"]
+[connection signal="mouse_entered" from="credits" to="." method="_on_credits_mouse_entered"]

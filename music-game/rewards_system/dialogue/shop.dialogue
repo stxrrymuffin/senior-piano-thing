@@ -1,0 +1,26 @@
+~ start
+if Globals.first_time:
+	mewozart: yo. welcome to the shop ! :D :D D:D :D
+else:
+	mewozart: yo. welcome back!
+do Globals.first_time = false
+mewozart: wanna earn some more points or spend them? you currently have {{Globals.TOTAL_POINTS}} points!
+- earn some points!
+	mewozart: alright!
+	mewozart: which minigame do you wanna do?
+	- sheet music free-play
+		mewozart: slay queen
+		do get_tree().change_scene_to_file("res://scenes/transcription_instructions.tscn")
+	- fishing minigame
+		mewozart: yas slay
+		do get_tree().change_scene_to_file("res://fishing/fishing_game_instructions.tscn")
+	- sight reading minigame
+		mewozart: oki dokes
+		do get_tree().change_scene_to_file("res://battle_system/level_select.tscn")
+	- not interested in any
+		mewozart: alright, come back later then!
+		=> start
+- spend them :D
+	mewozart: sorry, but the shop's not open yet. come back later!
+	=> start
+=> END

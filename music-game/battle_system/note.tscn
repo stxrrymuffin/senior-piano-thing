@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuukj7j45b1ry"]
+
+[ext_resource type="Texture2D" uid="uid://nado7xo0qwu0" path="res://assets/eighth_colored.png" id="1_4c2mj"]
+[ext_resource type="Texture2D" uid="uid://cg0lbm5mg2uju" path="res://assets/quarter_colored.png" id="2_c3tnj"]
+[ext_resource type="Script" uid="uid://edc0c45lq8nw" path="res://battle_system/note.gd" id="2_wkac6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m66o6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4c2mj")
+}],
+"loop": true,
+"name": &"eighth",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_c3tnj")
+}],
+"loop": true,
+"name": &"quarter",
+"speed": 5.0
+}]
+
+[node name="note" type="AnimatedSprite2D"]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_m66o6")
+animation = &"eighth"
+script = ExtResource("2_wkac6")

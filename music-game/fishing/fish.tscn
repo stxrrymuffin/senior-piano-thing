@@ -1,8 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://mrtvfqjbqop8"]
 
-[ext_resource type="Texture2D" uid="uid://b0g0tto8ngs20" path="res://fishing_assets/fish.png" id="1_t635e"]
+[ext_resource type="Texture2D" uid="uid://g2d4sya2lb6x" path="res://fishing_assets/fish1.png" id="2_1hlks"]
 [ext_resource type="Script" uid="uid://dcs2ey6i454r2" path="res://fishing/fish.gd" id="3_1hlks"]
 [ext_resource type="Texture2D" uid="uid://prs556bcbr7m" path="res://fishing_assets/fish2.png" id="3_4rt7c"]
+[ext_resource type="Texture2D" uid="uid://bpx122q8bncww" path="res://fishing_assets/fish3.png" id="4_oirvb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hlks"]
 size = Vector2(105.562, 174.728)
@@ -10,15 +11,11 @@ size = Vector2(105.562, 174.728)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4rt7c"]
 size = Vector2(256.632, 111.935)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1hlks"]
-atlas = ExtResource("1_t635e")
-region = Rect2(0, 0, 499, 499)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_oirvb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1hlks")
+"texture": ExtResource("2_1hlks")
 }],
 "loop": true,
 "name": &"fish1",
@@ -30,6 +27,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"fish2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_oirvb")
+}],
+"loop": true,
+"name": &"fish3",
 "speed": 5.0
 }]
 
@@ -49,9 +54,23 @@ position = Vector2(35.4917, 1.36502)
 shape = SubResource("RectangleShape2D_4rt7c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(38.2218, 21.841)
+scale = Vector2(0.350281, 0.350281)
 sprite_frames = SubResource("SpriteFrames_oirvb")
-animation = &"fish2"
+animation = &"fish1"
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -95.5545
+offset_top = -117.396
+offset_right = -55.5545
+offset_bottom = -95.0622
+scale = Vector2(2.4069, 2.4069)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+text = "asdf"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

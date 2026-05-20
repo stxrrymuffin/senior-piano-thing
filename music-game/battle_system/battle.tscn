@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=3 uid="uid://duhvqmvalxdgk"]
+
+[ext_resource type="Script" uid="uid://dwyomtdbbws6s" path="res://battle.gd" id="1_dq4uj"]
+[ext_resource type="Texture2D" uid="uid://eybdx5vfah1i" path="res://icon.svg" id="2_vd4wy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nnei8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vd4wy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uk5l0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vd4wy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="battle" type="Node2D"]
+script = ExtResource("1_dq4uj")
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1151.0
+offset_bottom = 650.0
+
+[node name="Attack" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 43.0
+offset_top = -89.0
+offset_right = 308.0
+offset_bottom = -24.0
+grow_vertical = 0
+text = "attack"
+
+[node name="Skill" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -132.5
+offset_top = -88.0
+offset_right = 132.5
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "skill"
+
+[node name="Item" type="Button" parent="Buttons"]
+layout_mode = 0
+offset_left = 833.0
+offset_top = 562.0
+offset_right = 1098.0
+offset_bottom = 627.0
+text = "item"
+
+[node name="Player" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+position = Vector2(228, 476)
+sprite_frames = SubResource("SpriteFrames_nnei8")
+
+[node name="ProgressBar" type="ProgressBar" parent="Player"]
+offset_left = 100.0
+offset_top = 353.0
+offset_right = 357.0
+offset_bottom = 380.0
+value = 100.0
+show_percentage = false
+
+[node name="Enemy" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Enemy"]
+position = Vector2(894, 152)
+sprite_frames = SubResource("SpriteFrames_uk5l0")
+
+[node name="ProgressBar2" type="ProgressBar" parent="Enemy"]
+offset_left = 765.0
+offset_top = 34.0
+offset_right = 1022.0
+offset_bottom = 61.0
+value = 100.0
+show_percentage = false
+
+[connection signal="pressed" from="Buttons/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Buttons/Skill" to="." method="_on_skill_pressed"]
+[connection signal="pressed" from="Buttons/Item" to="." method="_on_item_pressed"]

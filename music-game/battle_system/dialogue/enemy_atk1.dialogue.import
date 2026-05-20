@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://b55xon3mbreh6"
+path="res://.godot/imported/enemy_atk1.dialogue-bc11924a7ac5c31d3be3471b872c249d.tres"
+
+[deps]
+
+source_file="res://battle_system/dialogue/enemy_atk1.dialogue"
+dest_files=["res://.godot/imported/enemy_atk1.dialogue-bc11924a7ac5c31d3be3471b872c249d.tres"]
+
+[params]
+
+defaults=true

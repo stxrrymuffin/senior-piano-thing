@@ -1,0 +1,9 @@
+~ start
+if Globals.first_time:
+	mewozart: wanna hear a cool memorization tip for reading the music staff?
+else:
+	mewozart: still learning how to read notes?
+do Globals.first_time = false
+mewozart: a great mnemonic for memorizing the notes on the ledger lines in treble clef is “Every Good Boy Does Fine” (E-G-B-D-F)!
+=> END
+

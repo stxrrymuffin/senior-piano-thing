@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw64jjkxf20uh"]
+
+[ext_resource type="Texture2D" uid="uid://eybdx5vfah1i" path="res://icon.svg" id="1_5fuqt"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4idhh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5fuqt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Theme" id="Theme_6x6f2"]
+Button/colors/font_color = Color(0.164706, 0.87451, 0.87451, 1)
+
+[node name="reward_page" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(252, 272.75)
+scale = Vector2(1.71875, 2.53516)
+sprite_frames = SubResource("SpriteFrames_4idhh")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 44.0
+offset_top = 62.0
+offset_right = 463.0
+offset_bottom = 89.0
+
+[node name="inventory" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_top = 492.0
+offset_right = 1152.0
+offset_bottom = 647.0
+theme = SubResource("Theme_6x6f2")

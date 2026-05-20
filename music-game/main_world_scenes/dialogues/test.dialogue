@@ -1,0 +1,11 @@
+~ start
+bob: [[Hi|Hello|Howdy]], this is some dialogue.
+billy: Here are some choices.
+- First one
+	bob: You picked the first one.
+- Second one
+	bob: You picked the second one.
+- Start again => start
+- End the conversation => END
+billy: For more information see the online documentation.
+=> END

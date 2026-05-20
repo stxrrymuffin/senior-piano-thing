@@ -1,0 +1,117 @@
+[gd_scene load_steps=13 format=3 uid="uid://bcoyaggestte3"]
+
+[ext_resource type="Script" uid="uid://cipvrx8mlk5t7" path="res://fishing/question_deck/q_interval_id.gd" id="1_thyks"]
+[ext_resource type="Texture2D" uid="uid://b1n40aect4exs" path="res://fishing_assets/computer.png" id="2_p1rvh"]
+[ext_resource type="Texture2D" uid="uid://eybdx5vfah1i" path="res://icon.svg" id="2_te567"]
+[ext_resource type="Texture2D" uid="uid://craq3vtra7ni3" path="res://fishing_assets/tab.png" id="3_jy4lq"]
+[ext_resource type="PackedScene" uid="uid://cj5jl20075ykc" path="res://fishing/answer_button.tscn" id="3_p1rvh"]
+[ext_resource type="FontFile" uid="uid://ces3khdus01eh" path="res://assets/CanvaSans-BoldItalic.otf" id="4_jy4lq"]
+[ext_resource type="Shader" uid="uid://yshukerdnyei" path="res://battle_system/text.gdshader" id="7_1a5wo"]
+[ext_resource type="Shader" uid="uid://yqlabg5am4nq" path="res://battle_system/level_select.gdshader" id="7_iuiht"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1a5wo"]
+shader = ExtResource("7_1a5wo")
+shader_parameter/speed = 1.5
+shader_parameter/amplitude = 20.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vkkuv"]
+load_path = "res://.godot/imported/bubbles.png-328726c6e46e94431fb7dbc10c7a3d2d.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vkkuv"]
+shader = ExtResource("7_iuiht")
+shader_parameter/speed = 2.0
+shader_parameter/amplitude = 50.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_clx4u"]
+shader = ExtResource("7_iuiht")
+shader_parameter/speed = 1.0
+shader_parameter/amplitude = 50.0
+
+[node name="Q_Interval_ID" type="Node2D"]
+script = ExtResource("1_thyks")
+
+[node name="computer" type="TextureRect" parent="."]
+offset_left = 283.0
+offset_top = 37.0
+offset_right = 6173.0
+offset_bottom = 6705.0
+scale = Vector2(0.100843, 0.100843)
+texture = ExtResource("2_p1rvh")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 401.0
+offset_top = 152.0
+offset_right = 2176.0
+offset_bottom = 1927.0
+scale = Vector2(0.134018, 0.134018)
+texture = ExtResource("3_jy4lq")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 391.0
+offset_top = 116.0
+offset_right = 886.0
+offset_bottom = 239.0
+scale = Vector2(0.77718, 0.77718)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.117647, 0.215686, 0.368627, 1)
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/shadow_offset_x = 3
+theme_override_fonts/normal_font = ExtResource("4_jy4lq")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[wave]name that note!"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 473.0
+offset_top = 205.0
+offset_right = 672.0
+offset_bottom = 390.0
+scale = Vector2(0.464288, 0.464288)
+texture = ExtResource("2_te567")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Answer_Button" parent="." instance=ExtResource("3_p1rvh")]
+visible = false
+offset_left = 667.0
+offset_top = 197.0
+offset_right = 836.0
+offset_bottom = 242.0
+scale = Vector2(0.65208, 0.65208)
+
+[node name="bubbles" type="Node2D" parent="."]
+
+[node name="bubble2" type="TextureRect" parent="bubbles"]
+z_index = 1
+material = SubResource("ShaderMaterial_1a5wo")
+offset_left = 221.0
+offset_top = 29.0
+offset_right = 1533.0
+offset_bottom = 1313.0
+scale = Vector2(0.112678, 0.112678)
+texture = SubResource("CompressedTexture2D_vkkuv")
+
+[node name="bubble3" type="TextureRect" parent="bubbles"]
+z_index = -1
+material = SubResource("ShaderMaterial_vkkuv")
+offset_left = 787.0
+offset_top = 429.0
+offset_right = 2099.0
+offset_bottom = 1713.0
+scale = Vector2(0.148185, 0.148185)
+texture = SubResource("CompressedTexture2D_vkkuv")
+
+[node name="bubble4" type="TextureRect" parent="bubbles"]
+z_index = 1
+material = SubResource("ShaderMaterial_clx4u")
+offset_left = 783.0
+offset_top = 303.0
+offset_right = 2095.0
+offset_bottom = 1587.0
+scale = Vector2(0.082863, 0.082863)
+texture = SubResource("CompressedTexture2D_vkkuv")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

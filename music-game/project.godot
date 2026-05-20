@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="music game"
-run/main_scene="uid://dru2o6qs3uuxm"
+run/main_scene="uid://dtojx3kpexpmy"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,10 +20,11 @@ config/icon="res://icon.svg"
 Globals="*res://scripts/globals.gd"
 PressedKeys="*res://scripts/pressed_keys.gd"
 DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg", "res://addons/midi/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
 
 [gui]
 
@@ -138,9 +139,13 @@ left_click={
 ]
 }
 
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://main_world_scenes/dialogues/test.dialogue", "res://battle_system/dialogue/enemy_atk1.dialogue", "res://rewards_system/dialogue/shop.dialogue", "res://scenes/dialogue/theory1.dialogue")
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
-environment/defaults/default_clear_color=Color(1, 1, 1, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

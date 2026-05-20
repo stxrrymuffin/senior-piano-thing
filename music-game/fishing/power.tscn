@@ -78,6 +78,7 @@ animations = [{
 }]
 
 [node name="PowerBar" type="Node2D"]
+rotation = 1.5708
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_fkoog")

@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=3 uid="uid://db01pmci8gh6a"]
+
+[ext_resource type="Script" uid="uid://bwa68gv2wppe2" path="res://battle_system/rhythm.gd" id="1_1d3mr"]
+[ext_resource type="Script" uid="uid://bf1vnufu7na6x" path="res://addons/midi/MidiPlayer.gd" id="2_x2du1"]
+[ext_resource type="PackedScene" uid="uid://bo163fbfaphgb" path="res://battle_system/key.tscn" id="3_7c866"]
+[ext_resource type="Texture2D" uid="uid://461665ijh60t" path="res://assets/music_staff.jpg" id="3_aajdg"]
+[ext_resource type="AudioStream" uid="uid://b4srssjji56sw" path="res://battle_system/midi/Master.wav" id="4_a1kjf"]
+[ext_resource type="Texture2D" uid="uid://dkf1gwo3haoxh" path="res://assets/music_staff2.jpg" id="4_u2eyk"]
+[ext_resource type="FontFile" uid="uid://ces3khdus01eh" path="res://assets/CanvaSans-BoldItalic.otf" id="7_u2eyk"]
+
+[node name="rhythm" type="Node2D"]
+script = ExtResource("1_1d3mr")
+
+[node name="Button" type="Button" parent="."]
+visible = false
+offset_left = 416.0
+offset_top = 2.0
+offset_right = 641.0
+offset_bottom = 40.0
+text = "truth bomb"
+
+[node name="Button2" type="Button" parent="."]
+visible = false
+offset_left = 429.0
+offset_top = 107.0
+offset_right = 630.0
+offset_bottom = 147.0
+text = "noooo"
+
+[node name="MidiPlayer" type="Node" parent="."]
+script = ExtResource("2_x2du1")
+file = "res://battle_system/midi/sam.mid"
+playing = true
+metadata/_custom_type_script = "uid://bf1vnufu7na6x"
+
+[node name="staff" type="Sprite2D" parent="."]
+position = Vector2(459, 345)
+texture = ExtResource("3_aajdg")
+
+[node name="staff2" type="Sprite2D" parent="."]
+position = Vector2(1178, 345)
+texture = ExtResource("4_u2eyk")
+
+[node name="buttons" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, -33)
+
+[node name="left" parent="buttons" instance=ExtResource("3_7c866")]
+position = Vector2(290, 225)
+
+[node name="down" parent="buttons" instance=ExtResource("3_7c866")]
+position = Vector2(290, 263)
+
+[node name="up" parent="buttons" instance=ExtResource("3_7c866")]
+position = Vector2(290, 304)
+
+[node name="right" parent="buttons" instance=ExtResource("3_7c866")]
+position = Vector2(290, 346)
+
+[node name="left5" parent="buttons" instance=ExtResource("3_7c866")]
+position = Vector2(290, 388)
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_a1kjf")
+
+[node name="Selected Note" type="ColorRect" parent="."]
+z_index = 100
+offset_left = 255.0
+offset_top = 133.0
+offset_right = 326.0
+offset_bottom = 568.0
+mouse_filter = 2
+color = Color(0.396073, 0.853339, 0.458834, 0.490196)
+
+[node name="Play Type" type="RichTextLabel" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 332.0
+offset_top = 193.0
+offset_right = 549.0
+offset_bottom = 264.0
+rotation = -0.291318
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("7_u2eyk")
+theme_override_font_sizes/normal_font_size = 40
+text = "Miss!"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="midi_event" from="MidiPlayer" to="." method="_on_midi_event"]

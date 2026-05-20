@@ -24,6 +24,8 @@ var play_from = 0
 
 var tempo = 120 #default
 
+var time_elapsed = 0.0
+
 # A standard piano with 88 keys has keys from 21 to 108.
 # To get a different set of keys, modify these numbers.
 # A maximally extended 108-key piano goes from 12 to 119.
@@ -47,6 +49,9 @@ func set_zoom(delta: Vector2) -> void:
 		$Camera2D.zoom += delta
 	var new_mouse_pos := get_global_mouse_position()
 	$Camera2D.position += mouse_pos - new_mouse_pos
+
+func _process(delta):
+	time_elapsed += delta
 	
 func _input(event):
 	
@@ -303,3 +308,10 @@ func _on_instruc_button_pressed():
 func _on_h_slider_value_changed(value):
 	tempo = value
 	$CanvasLayer/HSlider/Label.text = "Current Tempo: " + str(int(tempo)) + " BPM"
+
+
+func _on_return_pressed():
+	Globals.TOTAL_POINTS += int(time_elapsed/5)
+	print(time_elapsed)
+	print(Globals.TOTAL_POINTS)
+	get_tree().change_scene_to_file("res://rewards_system/points_reward.tscn")

@@ -1,0 +1,41 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://dcs1h5p18qga2"]
+
+[ext_resource type="Texture2D" uid="uid://bcvq3lj25l57b" path="res://assets/eighth_note_new.png" id="1_gcov7"]
+[ext_resource type="Texture2D" uid="uid://8qfwjwahvhpe" path="res://assets/half_note_new.png" id="2_s7f3c"]
+[ext_resource type="Texture2D" uid="uid://yhk287dbiio7" path="res://assets/quarter_note_new.png" id="3_nd8bv"]
+[ext_resource type="Texture2D" uid="uid://675wttsfe428" path="res://assets/16th_note_new.png" id="4_874ml"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gcov7")
+}],
+"loop": true,
+"name": &"eighth",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_s7f3c")
+}],
+"loop": true,
+"name": &"half",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_nd8bv")
+}],
+"loop": true,
+"name": &"quarter",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_874ml")
+}],
+"loop": true,
+"name": &"sixteenth",
+"speed": 5.0
+}]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bo163fbfaphgb"]
+
+[ext_resource type="Texture2D" uid="uid://cg0lbm5mg2uju" path="res://assets/quarter_colored.png" id="1_trf74"]
+[ext_resource type="Script" uid="uid://bchr8ld176om2" path="res://battle_system/key.gd" id="2_trf74"]
+
+[node name="key" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.435294)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_trf74")
+script = ExtResource("2_trf74")
