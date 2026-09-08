@@ -2,7 +2,7 @@
 
 *overall game is still WIP! play the music transcription (outdated) demo!
 
-wanna learn music theory, and *have fun* while doing it?? play frutiger stereo!
+wanna learn music theory, and *have fun* while doing it?? try out frutiger stereo!
 <p align="center">
   <img src="sc_4.png" alt="page1" width="500">
 </p>
